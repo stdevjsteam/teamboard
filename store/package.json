@@ -1,0 +1,28 @@
+{
+  "name": "teamboard-store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "tslint": "tslint --format verbose --project ./tsconfig.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/humps": "^1.1.2",
+    "@types/lodash": "^4.14.115",
+    "@types/normalizr": "^2.0.18",
+    "humps": "^2.0.1",
+    "lodash": "^4.17.10",
+    "normalizr": "^3.2.4",
+    "redux": "^4.0.0"
+  },
+  "devDependencies": {
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.14.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^2.9.2"
+  }
+}

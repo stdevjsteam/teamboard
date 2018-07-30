@@ -1,0 +1,43 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js add tslint --dev
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/hovo/Library/Android/sdk/tools:/Users/hovo/Library/Android/sdk/platform-tools:/Users/hovo/Library/Android/sdk/tools:/Users/hovo/Library/Android/sdk/platform-tools
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  10.4.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/figlet/-/figlet-1.2.0.tgz: ENOSPC: no space left on device, write
+
+npm manifest: 
+  {
+     "name": "server",
+     "version": "0.0.1",
+     "description": "Awesome project developed with TypeORM.",
+     "devDependencies": {
+        "ts-node": "3.3.0",
+        "@types/node": "^8.0.29",
+        "typescript": "2.5.2"
+     },
+     "dependencies": {
+        "typeorm": "0.2.7",
+        "reflect-metadata": "^0.1.10",
+        "pg": "^7.3.0"
+     },
+     "scripts": {
+        "start": "ts-node src/index.ts"
+     }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

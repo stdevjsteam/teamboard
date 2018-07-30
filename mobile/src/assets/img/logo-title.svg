@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.861 27">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        font-size: 27px;
+        font-family: Helvetica;
+      }
+
+      .cls-1 {
+        letter-spacing: -0.09em;
+      }
+
+      .cls-2 {
+        letter-spacing: -0.095em;
+        opacity: 0.3;
+      }
+    </style>
+  </defs>
+  <g id="Name" transform="translate(-99.145 -389.6)">
+    <text id="TEAM" class="cls-1" transform="translate(99.145 410.6)"><tspan x="0" y="0">TEAM</tspan></text>
+    <text id="BOARD" class="cls-2" transform="translate(177.006 410.6)"><tspan x="0" y="0">BOARD</tspan></text>
+  </g>
+</svg>

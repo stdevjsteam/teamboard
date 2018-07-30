@@ -1,0 +1,32 @@
+body {
+  background-color: #f8f8f8;
+}
+
+.login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -160px 0 0 -160px;
+  width: 320px;
+  padding: 36px;
+  box-shadow: 0 0 100px rgb(206, 218, 241);
+}
+
+.login-form__button {
+  width: 100%;
+}
+
+.login-form__logo {
+  text-align: center;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.login-form__logo img {
+  width: auto;
+  height: 100%;
+  margin-right: 8px;
+}

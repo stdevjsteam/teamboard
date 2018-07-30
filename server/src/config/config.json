@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "root",
+    "database": "employee_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false,
+    "migrationStorage": "json",
+    "migrationStoragePath": "sequelize-meta.json",
+    "seederStorage": "json",
+    "seederStoragePath": "sequelize-data.json",
+    "define": {
+      "underscored": true,
+      "createdAt": false,
+      "updatedAt": false
+    },
+    "query": {
+      "raw": true
+    }
+  }
+}
