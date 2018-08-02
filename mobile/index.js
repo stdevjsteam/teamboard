@@ -7,7 +7,7 @@ registerScreens();
 // start the app
 Navigation.startSingleScreenApp({
   screen: {
-    screen: 'teamboard.Activation',
+    screen: 'teamboard.auth.Activation',
     navigatorStyle: {
       navBarHidden: true
     }
