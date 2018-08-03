@@ -1,7 +1,8 @@
 import { SequelizeStatic, Sequelize as _Sequelize } from 'sequelize';
+import { TokenPurposes } from '../types';
 
 export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
-  const Invitation = sequelize.define('invitation', {
+  const Token = sequelize.define('token', {
     code: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,8 +16,15 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
       validate: {
         isEmail: true
       }
+    },
+    purpose: {
+      type: DataTypes.ENUM(
+        TokenPurposes.inviteUser,
+        TokenPurposes.resetPassword
+      ),
+      allowNull: false
     }
   });
 
-  return Invitation;
+  return Token;
 };

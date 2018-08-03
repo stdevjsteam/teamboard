@@ -1,3 +1,5 @@
+import { TokenPurposes } from './';
+
 export interface News {
   title: string;
   body: string;
@@ -12,7 +14,8 @@ export interface User {
   photo: string;
 }
 
-export interface Invitation {
+export interface Token {
   email: string;
   code: number;
+  purpose: TokenPurposes;
 }

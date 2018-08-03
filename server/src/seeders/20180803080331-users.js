@@ -22,6 +22,15 @@ module.exports = {
             '$2y$12$3OZtWosBXjIfXDRcwzvLUuuSSXae/GjRz6r0ZwHhIttsKlBStsOzO',
           photo: 'bla_bla',
           role: 'user'
+        },
+        {
+          firstName: 'User',
+          lastName: 'User',
+          email: 'hovhannes.st.dev@gmail.com',
+          password:
+            '$2y$12$3OZtWosBXjIfXDRcwzvLUuuSSXae/GjRz6r0ZwHhIttsKlBStsOzO',
+          photo: 'bla_bla',
+          role: 'user'
         }
       ],
       {}

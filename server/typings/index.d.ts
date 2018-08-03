@@ -1,12 +1,12 @@
 interface XMLHttpRequest {}
 interface Blob {}
 
+declare const user: any;
+declare const admin: any;
+
 declare namespace NodeJS {
   interface Global {
-    accessToken: string;
-    refreshToken: string;
-    me: any;
-    api: any;
-    repos: any;
+    user: any;
+    admin: any;
   }
 }

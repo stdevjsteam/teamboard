@@ -1,34 +1,36 @@
 import { agent } from 'supertest';
 import { SuperAgentRequest } from 'superagent';
-import { createConnection } from 'typeorm';
 
-import { callback } from '../lib';
-import { generateUser } from './mock';
-import { getRepositories } from '../lib/helpers';
+import { callback } from '../src';
+import { admin, user } from './mock';
+import models from '../src/models';
 
 const defaults = require('superagent-defaults');
-const ormconfig = require('../ormconfig.json');
-const { NODE_ENV } = process.env;
 
 export default async () => {
-  await createConnection(ormconfig[NODE_ENV!]);
+  await models.sequelize.sync({ force: true });
 
-  const api = defaults(agent(callback));
+  const userApi = defaults(agent(callback));
+  const adminApi = defaults(agent(callback));
 
-  const u = generateUser();
+  const t= await userApi.post('/auth/sign-up').send(admin);
+  await userApi.post('/auth/sign-up').send(user);
+console.log(t.body)
+  const adminTokens = await userApi.post('/auth/sign-in').send(admin);
+  const userTokens = await userApi.post('/auth/sign-in').send(user);
 
-  await api.post('/auth/sign-up').send(u);
-
-  const tokens = await api.post('/auth/sign-in').send(u);
-
-  api.use((req: SuperAgentRequest) => {
-    req.set('Authorization', tokens.body.access_token);
+  adminApi.use((req: SuperAgentRequest) => {
+    req.set('Authorization', adminTokens.body.access_token);
+    // set('Host', 'subdomain.example.com')
+    console.log(adminTokens.body);
     return req;
   });
 
-  global.accessToken = tokens.body.access_token;
-  global.refreshToken = tokens.body.refresh_token;
-  global.me = u;
-  global.api = api;
-  global.repos = getRepositories();
+  userApi.use((req: SuperAgentRequest) => {
+    req.set('Authorization', userTokens.body.access_token);
+    return req;
+  });
+
+  global.admin = { details: admin, tokens: adminTokens, api: adminApi };
+  global.user = { details: user, tokens: userTokens, api: userApi };
 };
