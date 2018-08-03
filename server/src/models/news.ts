@@ -16,6 +16,10 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
       validate: {
         notEmpty: true
       }
+    },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   });
 

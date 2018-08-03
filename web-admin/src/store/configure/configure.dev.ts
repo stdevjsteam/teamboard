@@ -10,24 +10,28 @@ export const history = createBrowserHistory();
 import rootReducer from 'teamboard-store/dist/rootReducer';
 import apiMiddleware from 'teamboard-store/dist/middleware/api';
 import { getTokens, setTokens, removeTokens } from 'helpers/auth';
+import { ADMIN_ROOT } from 'config';
 
 const configure = preloadedState => {
   const api = apiMiddleware({
-    getTokens,
-    setTokens,
-    removeTokens,
-    redirect: store => store.dispatch(push('/')),
-    onFailure: error => {
-      if (error.message) {
-        message.error(error.message);
-      }
+    callbacks: {
+      getTokens,
+      setTokens,
+      removeTokens,
+      redirect: store => store.dispatch(push('/')),
+      onFailure: error => {
+        if (error.message) {
+          message.error(error.message);
+        }
 
-      if (error.validationErrors) {
-        error.validationErrors.forEach(e => {
-          message.error(e.message);
-        });
+        if (error.validationErrors) {
+          error.validationErrors.forEach(e => {
+            message.error(e.message);
+          });
+        }
       }
-    }
+    },
+    apiRoot: ADMIN_ROOT
   });
 
   const store = createStore(

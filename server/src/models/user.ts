@@ -39,11 +39,14 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
       photo: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      role: {
+        type: DataTypes.ENUM('admin', 'user')
       }
     },
     {
       defaultScope: {
-        attributes: { exclude: ['password'] }
+        attributes: { exclude: ['password', 'role'] }
       }
     }
   );

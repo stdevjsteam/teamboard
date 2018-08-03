@@ -6,17 +6,24 @@ import * as bodyParser from 'koa-bodyparser';
 import * as cors from '@koa/cors';
 import * as serve from 'koa-static';
 import * as mount from 'koa-mount';
+import * as Subdomain from 'koa-subdomain';
+import * as Router from 'koa-router';
 
 import {
   errorHandler,
   transformer,
   extendContext,
-  authorization
+  authorization,
+  isAdmin,
+  isUser
 } from './middleware';
-import { auth, users, news, files, me, invitations } from './routes';
+import * as admin from './routes/admin';
+import * as user from './routes/user';
 import { start } from './start';
 
 const app = new Koa();
+
+app.subdomainOffset = 1;
 
 // third-party middleware
 app.use(bodyParser());
@@ -29,13 +36,37 @@ app.use(errorHandler());
 app.use(extendContext());
 app.use(authorization().unless({ path: /^\/auth/ }));
 
-// routes
-app.use(auth.routes());
-app.use(users.routes());
-app.use(news.routes());
-app.use(files.routes());
-app.use(me.routes());
-app.use(invitations.routes());
+// admin routes
+const subdomain = new Subdomain();
+const adminRouter = new Router();
+
+adminRouter.use(
+  '*',
+  isAdmin().unless({ path: /^\/auth/ }),
+  admin.auth.routes(),
+  admin.files.routes(),
+  admin.invitations.routes(),
+  admin.me.routes(),
+  admin.news.routes(),
+  admin.users.routes()
+);
+
+subdomain.use('admin', adminRouter.routes());
+
+const userRouter = new Router();
+
+userRouter.use(
+  isUser().unless({ path: /^\/auth/ }),
+  user.auth.routes(),
+  user.files.routes(),
+  user.invitations.routes(),
+  user.me.routes(),
+  user.news.routes(),
+  user.users.routes()
+);
+
+app.use(subdomain.routes());
+app.use(userRouter.routes());
 
 export const callback = app.callback();
 

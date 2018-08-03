@@ -6,10 +6,8 @@ import { UploadFile } from 'antd/lib/upload/interface';
 import 'cropperjs/dist/cropper.css';
 
 import { convertToBase64 } from 'helpers/base64';
-import config from 'teamboard-store/dist/config';
+import { API_ROOT } from 'config';
 import { users, entities, common } from 'teamboard-store';
-
-const { API_ROOT } = config;
 
 type Props = {
   user: entities.User;
@@ -77,6 +75,8 @@ class ImageUpload extends Component<Props, State> {
             this.setState({
               cropImage: (await convertToBase64(d.file)) as string
             });
+
+            d.onSuccess();
           }}
         >
           <div>

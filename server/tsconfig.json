@@ -12,7 +12,8 @@
     "noImplicitReturns": true,
     "strict": true,
     "noUnusedLocals": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "baseUrl": "src"
   },
   "exclude": ["./__tests__"]
 }

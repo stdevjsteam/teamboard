@@ -1,9 +1,8 @@
 import * as Router from 'koa-router';
+import { me } from 'controllers';
 
 const router = new Router({ prefix: '/me' });
 
-router.get('/', async ctx => {
-  ctx.body = ctx.state.user.get({ plain: true });
-});
+router.get('/', me.fetch);
 
 export default router;

@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as glob from 'glob';
 
 type Params = {
   oldPath: string;
@@ -9,8 +8,11 @@ type Params = {
 
 export const upload = ({ oldPath, newPath, file }: Params): Promise<string> =>
   new Promise(async (resolve, reject) => {
-    if (!file) {
+    try {
       await unlink(oldPath);
+    } catch {}
+
+    if (!file) {
       resolve('');
       return;
     }
@@ -27,27 +29,12 @@ export const upload = ({ oldPath, newPath, file }: Params): Promise<string> =>
       return;
     }
 
-    await deleteMatchingFiles(`${newPath}.*`);
-
     fs.writeFile(fullPath, withoutHeader, encoding, err => {
       if (err) {
         reject(err);
       }
 
       resolve(pathWithExt);
-    });
-  });
-
-const deleteMatchingFiles = (path: string): Promise<void> =>
-  new Promise((resolve, reject) => {
-    glob(path, {}, async (err, files) => {
-      if (err) {
-        reject(err);
-      }
-
-      await Promise.all(files.map(unlink));
-
-      resolve();
     });
   });
 

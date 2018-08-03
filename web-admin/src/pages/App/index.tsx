@@ -6,10 +6,8 @@ import './index.css';
 import { renderRoutes } from 'react-router-config';
 import { removeTokens } from 'helpers/auth';
 import { auth, common, entities } from 'teamboard-store';
-import config from 'teamboard-store/dist/config';
+import { API_ROOT } from 'config';
 import MenuLink from './components/MenuLink';
-
-const { API_ROOT } = config;
 
 const { Header, Content, Sider } = Layout;
 

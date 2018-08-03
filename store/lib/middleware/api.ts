@@ -1,7 +1,6 @@
 import { normalize, Schema } from 'normalizr';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import { Store } from 'redux';
-import config from '../config';
 import { auth } from '../modules';
 import { common } from '../modules';
 
@@ -11,15 +10,15 @@ interface Config {
   body?: object;
   schema?: Schema;
   callbacks: Callbacks;
+  apiRoot: string;
 }
-const { API_ROOT } = config;
 
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
 const callApi = async (config: Config, store: Store) => {
-  const { callbacks, endpoint, schema, body, method = 'GET' } = config;
+  const { callbacks, apiRoot, endpoint, schema, body, method = 'GET' } = config;
   const stringBody = body && JSON.stringify(decamelizeKeys(body));
-  const fullUrl = API_ROOT + endpoint;
+  const fullUrl = apiRoot + endpoint;
 
   //  makes a request
   const send = async () => {
@@ -71,9 +70,9 @@ const callApi = async (config: Config, store: Store) => {
   }
 };
 
-interface Tokens {
-  accessToken: string;
-  refreshToken: string;
+interface Params {
+  callbacks: Callbacks;
+  apiRoot: string;
 }
 
 interface Callbacks {
@@ -85,9 +84,14 @@ interface Callbacks {
   redirect(store: Store): void;
 }
 
+interface Tokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
 // A Redux middleware that interprets actions with CALL_API info specified.
 // Performs the call and promises when such actions are dispatched.
-export default (callbacks: Callbacks) => (store: Store) => (
+export default ({ callbacks, apiRoot }: Params) => (store: Store) => (
   next: (action: any) => void
 ) => (action: common.ApiAction) => {
   const callAPI = action[common.CALL_API];
@@ -140,7 +144,7 @@ export default (callbacks: Callbacks) => (store: Store) => (
   const [requestType, successType, failureType] = types;
   next(actionWith({ type: requestType }));
 
-  const config = { endpoint, schema, method, body, callbacks };
+  const config = { endpoint, schema, method, body, callbacks, apiRoot };
 
   return callApi(config, store).then(
     response => {

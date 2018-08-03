@@ -1,6 +1,7 @@
 export interface News {
   title: string;
   body: string;
+  photo: string;
 }
 
 export interface User {
