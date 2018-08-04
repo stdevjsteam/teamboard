@@ -1,4 +1,4 @@
-describe('Authorization middleware', () => {
+describe('authorization middleware', () => {
   it('should prevent accessing protected resources if access token is not provided', () =>
     user.api
       .get('/me')

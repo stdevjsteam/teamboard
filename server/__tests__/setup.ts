@@ -4,30 +4,39 @@ import { SuperAgentRequest } from 'superagent';
 import { callback } from '../src';
 import { admin, user } from './mock';
 import models from '../src/models';
+import { auth } from '../src/services';
 
 const defaults = require('superagent-defaults');
 
 export default async () => {
-  await models.sequelize.sync({ force: true });
+  const { sequelize, User } = models;
+
+  await sequelize.sync({ force: true });
 
   const userApi = defaults(agent(callback));
   const adminApi = defaults(agent(callback));
 
-  const t= await userApi.post('/auth/sign-up').send(admin);
-  await userApi.post('/auth/sign-up').send(user);
-console.log(t.body)
-  const adminTokens = await userApi.post('/auth/sign-in').send(admin);
-  const userTokens = await userApi.post('/auth/sign-in').send(user);
+  await User.bulkCreate([admin, user]);
+
+  const adminTokens = {
+    accessToken: auth.generateAccessToken(admin),
+    refreshToken: auth.generateRefreshToken(admin)
+  };
+
+  const userTokens = {
+    accessToken: auth.generateAccessToken(user),
+    refreshToken: auth.generateRefreshToken(user)
+  };
 
   adminApi.use((req: SuperAgentRequest) => {
-    req.set('Authorization', adminTokens.body.access_token);
-    // set('Host', 'subdomain.example.com')
-    console.log(adminTokens.body);
+    req.set('Authorization', adminTokens.accessToken);
+    req.url = req.url.replace(/^http:\/\//, 'http://admin.');
+    console.log(req.url);
     return req;
   });
 
   userApi.use((req: SuperAgentRequest) => {
-    req.set('Authorization', userTokens.body.access_token);
+    req.set('Authorization', userTokens.accessToken);
     return req;
   });
 
