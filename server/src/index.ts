@@ -48,7 +48,8 @@ adminRouter.use(
   admin.invitations.routes(),
   admin.me.routes(),
   admin.news.routes(),
-  admin.users.routes()
+  admin.users.routes(),
+  admin.groups.routes()
 );
 
 subdomain.use('admin', adminRouter.routes());

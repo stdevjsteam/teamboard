@@ -53,5 +53,13 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
 
   User.addHook('beforeSave', hashPassword);
 
+  User.associate = ({ Group, GroupMembers }) => {
+    User.belongsToMany(Group, {
+      as: 'Groups',
+      through: GroupMembers,
+      foreignKey: { name: 'memberId', field: 'member_id' }
+    });
+  };
+
   return User;
 };

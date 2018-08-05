@@ -7,7 +7,7 @@ const errorHandler = () => async (ctx: Context, next: Next) => {
   } catch (err) {
     let status = err.status || 500;
     let body = err;
-
+    console.log(err);
     if (err.name === 'SequelizeValidationError') {
       body = {
         validationErrors: (err as ValidationError).errors.map(

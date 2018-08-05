@@ -1,4 +1,5 @@
 import { Response } from 'supertest';
+import models from '../../src/models';
 
 describe('auth controller', () => {
   describe('POST /auth/sign-in', () => {
@@ -51,11 +52,65 @@ describe('auth controller', () => {
   });
 
   describe('POST /auth/forgot-password', () => {
-    it('should return an error when token has already been sent', () => {
+    afterEach(() => {
+      return models.Token.destroy({ where: {} });
+    });
+
+    it('should return an error if token has already been sent', async () => {
+      await admin.api
+        .post('/auth/forgot-password')
+        .send({ email: user.details.email });
+
+      await admin.api
+        .post('/auth/forgot-password')
+        .send({ email: user.details.email })
+        .expect(400);
+    });
+
+    it('should return an error if such email is not registered', () => {
+      return admin.api
+        .post('/auth/forgot-password')
+        .send({ email: 'wrong_email@gmail.com' })
+        .expect(400);
+    });
+
+    it('should email us a token for resetting the password', () => {
       return admin.api
         .post('/auth/forgot-password')
         .send({ email: user.details.email })
         .expect(200);
+    });
+  });
+
+  describe('POST /auth/reset-password', () => {
+    it('should return an error when code is wrong', () => {
+      return user.api
+        .post('/auth/reset-password')
+        .send({ code: 123456 })
+        .expect(400);
+    });
+
+    it('should reset the password', async () => {
+      await admin.api
+        .post('/auth/forgot-password')
+        .send({ email: user.details.email });
+
+      const resetPassword = await models.Token.findOne({
+        where: { email: user.details.email },
+        raw: false
+      });
+
+      await user.api
+        .post('/auth/reset-password')
+        .send({ code: resetPassword!.get('code'), password: 'new_password' })
+        .expect(200);
+
+      const resetPassword2 = await models.Token.findOne({
+        where: { email: user.details.email },
+        raw: false
+      });
+
+      expect(resetPassword2).toBeNull();
     });
   });
 });

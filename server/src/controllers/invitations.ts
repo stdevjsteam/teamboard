@@ -2,7 +2,7 @@ import { IRouterContext } from 'koa-router';
 import generateRandomNumber from '../helpers/generateRandomNumber';
 import { mailer } from '../services';
 import { omit } from 'lodash';
-import { TokenPurposes } from '../types/index';
+import { TokenPurposes } from '../types';
 
 class Invitations {
   sendCode = async (ctx: IRouterContext) => {

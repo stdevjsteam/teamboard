@@ -4,7 +4,7 @@ import Sequelize, {
   Instance
 } from 'sequelize';
 import { decamelize } from 'humps';
-import { User, News, Token } from '../types/models';
+import { User, News, Token, Group, GroupMembers } from '../types/models';
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config.json');
@@ -21,7 +21,11 @@ const models = {
   Sequelize,
   User: sequelize.import<Instance<User>, User>(__dirname + '/user.ts'),
   News: sequelize.import<Instance<News>, News>(__dirname + '/news.ts'),
-  Token: sequelize.import<Instance<Token>, Token>(__dirname + '/token.ts')
+  Token: sequelize.import<Instance<Token>, Token>(__dirname + '/token.ts'),
+  Group: sequelize.import<Instance<Group>, Group>(__dirname + '/group.ts'),
+  GroupMembers: sequelize.import<Instance<GroupMembers>, GroupMembers>(
+    __dirname + '/groupMembers.ts'
+  )
 };
 
 // convert camelCased fields to under_score

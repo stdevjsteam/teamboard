@@ -1,12 +1,16 @@
-import { TokenPurposes } from './';
+import { TokenPurposes, GroupRoles } from './';
 
-export interface News {
-  title: string;
-  body: string;
-  photo: string;
+interface Base {
+  id?: number;
 }
 
-export interface User {
+export interface News extends Base {
+  title: string;
+  body: string;
+  image: string;
+}
+
+export interface User extends Base {
   firstName: string;
   lastName: string;
   email: string;
@@ -14,8 +18,16 @@ export interface User {
   photo: string;
 }
 
-export interface Token {
+export interface Token extends Base {
   email: string;
   code: number;
   purpose: TokenPurposes;
+}
+
+export interface Group extends Base {
+  name: string;
+}
+
+export interface GroupMembers extends Base {
+  role: GroupRoles;
 }

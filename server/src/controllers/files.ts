@@ -10,19 +10,16 @@ class Files {
 
     const path = await upload({
       oldPath: user.get('photo'),
-      newPath: `static/photos/users/${id}-${Date.now()}`,
+      newPath: `static/images/users/${id}-${Date.now()}`,
       file
     });
 
-    const response = await User.update(
-      { photo: path },
-      { where: { id }, returning: true }
-    );
+    await User.update({ photo: path }, { where: { id }, returning: true });
 
-    ctx.body = response[1][0];
+    ctx.body = await User.findById(id);
   };
 
-  newsPhoto = async (ctx: IRouterContext) => {
+  newsImage = async (ctx: IRouterContext) => {
     const { News } = ctx.models;
     const { file, newsId } = ctx.request.body;
     const news = await News.findById(newsId, { raw: false });
@@ -30,13 +27,13 @@ class Files {
     ctx.assert(news, 400);
 
     const path = await upload({
-      oldPath: news!.get('photo'),
-      newPath: `static/photos/news/${newsId}-${Date.now()}`,
+      oldPath: news!.get('image'),
+      newPath: `static/images/news/${newsId}-${Date.now()}`,
       file
     });
 
     const response = await News.update(
-      { photo: path },
+      { image: path },
       { where: { id: newsId }, returning: true }
     );
 
@@ -51,8 +48,8 @@ class Files {
           await this.userPhoto(ctx);
           break;
 
-        case 'news_photo':
-          await this.newsPhoto(ctx);
+        case 'news_image':
+          await this.newsImage(ctx);
           break;
 
         default:
