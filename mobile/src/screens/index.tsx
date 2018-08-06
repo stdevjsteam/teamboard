@@ -5,4 +5,9 @@ export function registerScreens() {
     'teamboard.auth.Activation',
     () => require('./auth/Activation').default
   );
+
+  Navigation.registerComponent(
+    'teamboard.auth.Profile',
+    () => require('./auth/Profile').default
+  );
 }
