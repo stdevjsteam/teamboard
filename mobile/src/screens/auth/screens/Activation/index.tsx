@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { StyleSheet, KeyboardAvoidingView, View, Platform } from 'react-native';
 import { Button, TextInput, ControlBox, Presentational } from 'components';
 
 class Activation extends Component {
@@ -8,9 +7,7 @@ class Activation extends Component {
 
   handleSubmit = async () => {
     // this.setState({ loading: true });
-
     // await invitations.checkCode({ code: this.state.value });
-
     // this.setState({ loading: false });
   };
 
@@ -18,25 +15,33 @@ class Activation extends Component {
     const { value, loading } = this.state;
 
     return (
-      <KeyboardAwareScrollView contentContainerStyle={styles.wrapper}>
-        <Presentational image={require('./img/building.png')} title="Welcome" />
-        <ControlBox>
-          <ControlBox.Inputs>
-            <ControlBox.InputWrapper>
-              <TextInput
-                value={value}
-                onChangeText={(value: string) => {
-                  this.setState({ value });
-                }}
-                placeholder="Enter the code"
-              />
-            </ControlBox.InputWrapper>
-          </ControlBox.Inputs>
-          <Button disabled={loading} onPress={this.handleSubmit}>
-            GO
-          </Button>
-        </ControlBox>
-      </KeyboardAwareScrollView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        style={{ flex: 1 }}
+      >
+        <View style={styles.wrapper}>
+          <Presentational
+            image={require('./img/building.png')}
+            title="Welcome"
+          />
+          <ControlBox>
+            <ControlBox.Inputs>
+              <ControlBox.InputWrapper>
+                <TextInput
+                  value={value}
+                  onChangeText={(value: string) => {
+                    this.setState({ value });
+                  }}
+                  placeholder="Enter the code"
+                />
+              </ControlBox.InputWrapper>
+            </ControlBox.Inputs>
+            <Button disabled={loading} onPress={this.handleSubmit}>
+              GO
+            </Button>
+          </ControlBox>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
