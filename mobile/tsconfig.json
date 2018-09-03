@@ -8,8 +8,7 @@
     "moduleResolution": "node",
     "noEmit": true,
     "noImplicitAny": true,
-    "target": "es6",
-    "baseUrl": "."
+    "target": "es6"
   },
   "exclude": ["node_modules"]
 }

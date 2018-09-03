@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button, TextInput, ControlBox, Presentational } from 'components';
-import { invitations } from 'teamboard-store';
 
 class Activation extends Component {
   state = { value: '', loading: false };
 
   handleSubmit = async () => {
-    this.setState({ loading: true });
+    // this.setState({ loading: true });
 
-    await invitations.checkCode({ code: this.state.value });
+    // await invitations.checkCode({ code: this.state.value });
 
-    this.setState({ loading: false });
+    // this.setState({ loading: false });
   };
 
   render() {

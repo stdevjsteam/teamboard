@@ -22,9 +22,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		18349635210EF40800D3ED6D /* RussoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18349633210EF40800D3ED6D /* RussoOne-Regular.ttf */; };
-		18349636210EF40800D3ED6D /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18349634210EF40800D3ED6D /* Roboto-Regular.ttf */; };
-		18349678210F110700D3ED6D /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18349677210F10EA00D3ED6D /* libReactNativeNavigation.a */; };
+		184552EC213CFA8200D720EC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184552E9213CFA7100D720EC /* libReactNativeNavigation.a */; };
+		1852377F213D45E600342B6F /* RussoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1852377D213D45E500342B6F /* RussoOne-Regular.ttf */; };
+		18523780213D45E600342B6F /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1852377E213D45E600342B6F /* Roboto-Regular.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -107,12 +107,19 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
-		18349676210F10EA00D3ED6D /* PBXContainerItemProxy */ = {
+		184552E8213CFA7100D720EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1834964D210F10EA00D3ED6D /* ReactNativeNavigation.xcodeproj */;
+			containerPortal = 184552E3213CFA7100D720EC /* ReactNativeNavigation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D8AFADBD1BEE6F3F00A4592D;
 			remoteInfo = ReactNativeNavigation;
+		};
+		184552EA213CFA7100D720EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 184552E3213CFA7100D720EC /* ReactNativeNavigation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B49FEBB1E95090800DEB3EA;
+			remoteInfo = ReactNativeNavigationTests;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -346,9 +353,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = teamboard/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = teamboard/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		18349633210EF40800D3ED6D /* RussoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RussoOne-Regular.ttf"; path = "../../src/assets/fonts/RussoOne-Regular.ttf"; sourceTree = "<group>"; };
-		18349634210EF40800D3ED6D /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
-		1834964D210F10EA00D3ED6D /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
+		184552E3213CFA7100D720EC /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
+		1852377D213D45E500342B6F /* RussoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RussoOne-Regular.ttf"; path = "../../../projects/teamboard/MyApp/src/assets/fonts/RussoOne-Regular.ttf"; sourceTree = "<group>"; };
+		1852377E213D45E600342B6F /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../../projects/teamboard/MyApp/src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* teamboard-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "teamboard-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* teamboard-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "teamboard-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,7 +378,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18349678210F110700D3ED6D /* libReactNativeNavigation.a in Frameworks */,
+				184552EC213CFA8200D720EC /* libReactNativeNavigation.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -530,21 +537,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1834960D210EF35300D3ED6D /* fonts */ = {
+		184552E4213CFA7100D720EC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				18349634210EF40800D3ED6D /* Roboto-Regular.ttf */,
-				18349633210EF40800D3ED6D /* RussoOne-Regular.ttf */,
-			);
-			path = fonts;
-			sourceTree = "<group>";
-		};
-		1834964E210F10EA00D3ED6D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				18349677210F10EA00D3ED6D /* libReactNativeNavigation.a */,
+				184552E9213CFA7100D720EC /* libReactNativeNavigation.a */,
+				184552EB213CFA7100D720EC /* ReactNativeNavigationTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		18523751213D456900342B6F /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1852377E213D45E600342B6F /* Roboto-Regular.ttf */,
+				1852377D213D45E500342B6F /* RussoOne-Regular.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -576,7 +584,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				1834964D210F10EA00D3ED6D /* ReactNativeNavigation.xcodeproj */,
+				184552E3213CFA7100D720EC /* ReactNativeNavigation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -605,7 +613,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				1834960D210EF35300D3ED6D /* fonts */,
+				18523751213D456900342B6F /* fonts */,
 				13B07FAE1A68108700A75B9A /* teamboard */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* teamboardTests */,
@@ -797,8 +805,8 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = 1834964E210F10EA00D3ED6D /* Products */;
-					ProjectRef = 1834964D210F10EA00D3ED6D /* ReactNativeNavigation.xcodeproj */;
+					ProductGroup = 184552E4213CFA7100D720EC /* Products */;
+					ProjectRef = 184552E3213CFA7100D720EC /* ReactNativeNavigation.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -868,11 +876,18 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		18349677210F10EA00D3ED6D /* libReactNativeNavigation.a */ = {
+		184552E9213CFA7100D720EC /* libReactNativeNavigation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libReactNativeNavigation.a;
-			remoteRef = 18349676210F10EA00D3ED6D /* PBXContainerItemProxy */;
+			remoteRef = 184552E8213CFA7100D720EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		184552EB213CFA7100D720EC /* ReactNativeNavigationTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ReactNativeNavigationTests.xctest;
+			remoteRef = 184552EA213CFA7100D720EC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */ = {
@@ -1093,8 +1108,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				18349635210EF40800D3ED6D /* RussoOne-Regular.ttf in Resources */,
-				18349636210EF40800D3ED6D /* Roboto-Regular.ttf in Resources */,
+				1852377F213D45E600342B6F /* RussoOne-Regular.ttf in Resources */,
+				18523780213D45E600342B6F /* Roboto-Regular.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1253,7 +1268,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-navigation/ios/**";
 				INFOPLIST_FILE = teamboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1271,7 +1285,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-navigation/ios/**";
 				INFOPLIST_FILE = teamboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
