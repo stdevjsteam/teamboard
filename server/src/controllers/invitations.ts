@@ -3,6 +3,7 @@ import generateRandomNumber from '../helpers/generateRandomNumber';
 import { mailer } from '../services';
 import { omit } from 'lodash';
 import { TokenPurposes } from '../types';
+import { UserRoles } from '../types/index';
 
 class Invitations {
   sendCode = async (ctx: IRouterContext) => {
@@ -56,7 +57,7 @@ class Invitations {
     await User.create({
       ...userDetails,
       email: invitation!.get('email'),
-      role: 'user'
+      role: UserRoles.user
     });
 
     await invitation!.destroy();

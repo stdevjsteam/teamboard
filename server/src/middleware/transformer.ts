@@ -21,6 +21,14 @@ const transformer = () => async (ctx: Context, next: Next) => {
 
         return item;
       });
+    } else if (Array.isArray(ctx.body.rows)) {
+      ctx.body.rows = ctx.body.rows.map((item: any) => {
+        if (item instanceof (Model as any)) {
+          return item.get({ plain: true });
+        }
+
+        return item;
+      });
     } else if (ctx.body instanceof (Model as any)) {
       return ctx.body.get({ plain: true });
     }

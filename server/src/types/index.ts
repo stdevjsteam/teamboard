@@ -8,3 +8,8 @@ export enum GroupRoles {
   tl = 'tl',
   pm = 'pm'
 }
+
+export enum UserRoles {
+  user = 'user',
+  admin = 'admin'
+}

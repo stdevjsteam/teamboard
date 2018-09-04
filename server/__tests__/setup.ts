@@ -8,6 +8,7 @@ import models from '../src/models';
 import { auth } from '../src/services';
 
 import * as defaults from 'superagent-defaults';
+import { UserRoles } from '../src/types/index';
 
 const fn = async () => {
   try {
@@ -18,8 +19,8 @@ const fn = async () => {
     const userApi = defaults(agent(callback));
     const adminApi = defaults(agent(callback));
 
-    const user = casual.user({ role: 'user' });
-    const admin = casual.user({ role: 'admin' });
+    const user = casual.user({ role: UserRoles.user });
+    const admin = casual.user({ role: UserRoles.admin });
 
     await User.bulkCreate([admin, user]);
 

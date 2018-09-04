@@ -1,5 +1,6 @@
 import { hashPassword } from '../services/password';
 import { SequelizeStatic, Sequelize as _Sequelize } from 'sequelize';
+import { UserRoles } from '../types/index';
 
 export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
   const User = sequelize.define(
@@ -40,7 +41,7 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
         type: DataTypes.STRING
       },
       role: {
-        type: DataTypes.ENUM('admin', 'user')
+        type: DataTypes.ENUM(UserRoles.admin, UserRoles.user)
       }
     },
     {

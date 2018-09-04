@@ -25,6 +25,15 @@ const include = (ctx: IRouterContext) => {
   };
 };
 
+const paginate = (ctx: IRouterContext) => {
+  const { page = 1, limit = null } = ctx.query;
+
+  return {
+    limit,
+    offset: (page - 1) * limit
+  };
+};
+
 class Crud {
   model: Model;
 
@@ -33,9 +42,10 @@ class Crud {
   }
 
   public async _findAll(ctx: IRouterContext, options: FindOptions<Model> = {}) {
-    ctx.body = await this.model.findAll({
+    ctx.body = await this.model.findAndCountAll({
       ...options,
-      ...include(ctx)
+      ...include(ctx),
+      ...paginate(ctx)
     });
   }
 
