@@ -77,5 +77,6 @@ export const deleteNews = (id: Id): ApiAction => ({
     ],
     endpoint: `/news/${id}`,
     method: 'DELETE'
-  }
+  },
+  meta: { id }
 });

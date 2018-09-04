@@ -15,6 +15,7 @@ export type ApiAction = {
     body?: object;
     schema?: Schema;
   };
+  meta?: object;
 };
 
 export type StoreState = {

@@ -11,7 +11,7 @@ export type User = {
   email: string;
   firstName: string;
   lastName: string;
-  photo: string;
+  image: string;
 };
 
 export type News = {

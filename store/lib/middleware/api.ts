@@ -142,7 +142,8 @@ export default ({ callbacks, apiRoot }: Params) => (store: Store) => (
   };
 
   const [requestType, successType, failureType] = types;
-  next(actionWith({ type: requestType }));
+  const requestAction = actionWith({ type: requestType });
+  next(requestAction);
 
   const config = { endpoint, schema, method, body, callbacks, apiRoot };
 
@@ -154,7 +155,8 @@ export default ({ callbacks, apiRoot }: Params) => (store: Store) => (
       return next(
         actionWith({
           response,
-          type: successType
+          type: successType,
+          requestAction
         })
       );
     },
@@ -165,7 +167,8 @@ export default ({ callbacks, apiRoot }: Params) => (store: Store) => (
       return next(
         actionWith({
           type: failureType,
-          error: error.message || 'Something bad happened'
+          error: error.message || 'Something bad happened',
+          requestAction
         })
       );
     }

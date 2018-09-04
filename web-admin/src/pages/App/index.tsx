@@ -29,7 +29,7 @@ class App extends Component<Props> {
 
   render() {
     const { history, currentUser } = this.props;
-    const { firstName, lastName, photo } = currentUser;
+    const { firstName, lastName, image } = currentUser;
 
     return (
       <Layout style={{ height: '100%' }}>
@@ -86,7 +86,7 @@ class App extends Component<Props> {
                         backgroundColor: '#00B2F0',
                         marginRight: '10px'
                       }}
-                      src={photo && API_ROOT + '/' + photo}
+                      src={image && API_ROOT + '/' + image}
                     >
                       {firstName && firstName.slice(0, 1).toUpperCase()}
                     </Avatar>
@@ -97,11 +97,13 @@ class App extends Component<Props> {
                 }
               >
                 <Menu.Item key="profile">
-                  <Icon type="profile" />Profile
+                  <Icon type="profile" />
+                  Profile
                 </Menu.Item>
 
                 <Menu.Item key="logout">
-                  <Icon type="logout" />Sign out
+                  <Icon type="logout" />
+                  Sign out
                 </Menu.Item>
               </Menu.SubMenu>
             </Menu>

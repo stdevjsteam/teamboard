@@ -19,17 +19,17 @@ export const updateUser = (body: UpdateUserBody): ApiAction => ({
   }
 });
 
-type UploadPhotoBody = {
+type UploadImageBody = {
   file: string;
   purpose: string;
 };
 
-export const uploadPhoto = (body: UploadPhotoBody): ApiAction => ({
+export const uploadImage = (body: UploadImageBody): ApiAction => ({
   [CALL_API]: {
     types: [
-      constants.UPLOAD_PHOTO_REQUEST,
-      constants.UPLOAD_PHOTO_SUCCESS,
-      constants.UPLOAD_PHOTO_FAILURE
+      constants.UPLOAD_IMAGE_REQUEST,
+      constants.UPLOAD_IMAGE_SUCCESS,
+      constants.UPLOAD_IMAGE_FAILURE
     ],
     endpoint: `/files`,
     method: 'POST',

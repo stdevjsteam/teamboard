@@ -31,7 +31,7 @@ class ImageUpload extends Component<Props, State> {
     const file = (this.cropper.current as any).getCroppedCanvas().toDataURL();
 
     await this.props.dispatch(
-      users.uploadPhoto({ file, purpose: 'user_photo' })
+      users.uploadImage({ file, purpose: 'user_image' })
     );
 
     this.setState({
@@ -45,10 +45,10 @@ class ImageUpload extends Component<Props, State> {
 
     const fileList: UploadFile[] = [];
 
-    if (user.photo) {
+    if (user.image) {
       fileList.push({
         uid: Date.now(),
-        url: API_ROOT + '/' + user.photo,
+        url: API_ROOT + '/' + user.image,
         name: '',
         type: '',
         size: 0
@@ -68,7 +68,7 @@ class ImageUpload extends Component<Props, State> {
           }
           onRemove={() => {
             this.props.dispatch(
-              users.uploadPhoto({ purpose: 'user_photo', file: '' })
+              users.uploadImage({ purpose: 'user_image', file: '' })
             );
           }}
           customRequest={async d => {
@@ -92,7 +92,7 @@ class ImageUpload extends Component<Props, State> {
           <img
             alt="example"
             style={{ width: '100%' }}
-            src={API_ROOT + '/' + user.photo}
+            src={API_ROOT + '/' + user.image}
           />
         </Modal>
 

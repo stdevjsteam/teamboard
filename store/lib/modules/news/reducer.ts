@@ -22,7 +22,7 @@ const auth = (state = DEFAULT_STATE, action: AnyAction) => {
     case DELETE_NEWS_SUCCESS:
       return {
         ...state,
-        list: state.list.filter(id => id !== +action.response.deletedIds[0])
+        list: state.list.filter(id => id !== action.requestAction.meta.id)
       };
     case FETCH_CURRENT_NEWS_SUCCESS:
       return {
