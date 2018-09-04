@@ -5,31 +5,27 @@ module.exports = {
     return queryInterface.bulkInsert(
       'users',
       [
+        // plainPassword: 'admin123',
         {
+          id: 1,
           firstName: 'Admin',
           lastName: 'Admin',
-          email: 'admin@gmail.com',
+          email: 'teamboard_ad@mailinator.com',
           password:
-            '$2y$12$BXw73sMzNUiusKmLkz9mje9V1pOEmXoj.GMWDEGe4X7EZYO3cXFgy',
-          photo: 'bla_bla',
+            '$2y$12$GQG6PQGgLqZ8IYQU.ikTlOAQe43Z0fshvb//fH4Eug83SD8YEA0li',
+
+          image: 'bla_bla',
           role: 'admin'
         },
+        // plainPassword: 'user123',
         {
+          id: 2,
           firstName: 'User',
           lastName: 'User',
-          email: 'user@gmail.com',
+          email: 'teamboard_us@mailinator.com',
           password:
-            '$2y$12$3OZtWosBXjIfXDRcwzvLUuuSSXae/GjRz6r0ZwHhIttsKlBStsOzO',
-          photo: 'bla_bla',
-          role: 'user'
-        },
-        {
-          firstName: 'User',
-          lastName: 'User',
-          email: 'hovhannes.st.dev@gmail.com',
-          password:
-            '$2y$12$3OZtWosBXjIfXDRcwzvLUuuSSXae/GjRz6r0ZwHhIttsKlBStsOzO',
-          photo: 'bla_bla',
+            '$2y$12$T8hRump3y2VtAoZIifjOTODc7FgExc50s8PjVO2e4FDvmKITq5UVO',
+          image: 'bla_bla',
           role: 'user'
         }
       ],

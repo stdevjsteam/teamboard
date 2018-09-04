@@ -21,6 +21,7 @@
     "@types/nodemailer": "^4.6.2",
     "@types/sequelize": "^4.27.24",
     "@types/supertest": "^2.0.5",
+    "casual": "^1.5.19",
     "husky": "^0.14.3",
     "jest": "^23.3.0",
     "nodemon": "^1.17.5",
@@ -56,13 +57,14 @@
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.0.0",
     "superagent": "^3.8.3",
-    "typescript": "^2.9.2"
+    "typescript": "^3.0.3"
   },
   "scripts": {
     "dev": "NODE_PATH=src nodemon -w src -e ts -x \"TS_NODE_FILES=true ts-node src\"",
     "build": "rimraf build  && tsc",
     "serve": "NODE_ENV=production node ./build",
     "tslint": "tslint --project ./tsconfig.json",
-    "test": "NODE_PATH=src TS_NODE_FILES=true jest --forceExit --runInBand"
+    "test": "NODE_PATH=src TS_NODE_FILES=true jest --forceExit --runInBand",
+    "sequelize": "node_modules/.bin/sequelize"
   }
 }

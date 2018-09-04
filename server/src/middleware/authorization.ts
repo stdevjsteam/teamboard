@@ -11,9 +11,7 @@ const authorization = () => {
 
       const payload = await auth.verifyAccessToken(accessToken);
 
-      ctx.state.user = await User.unscoped().findById(payload.user.id, {
-        raw: false
-      });
+      ctx.state.user = await User.unscoped().findById(payload.user.id);
     } catch (e) {
       ctx.throw(401, e.message);
     }

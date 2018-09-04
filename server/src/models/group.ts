@@ -14,7 +14,7 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
 
   Group.associate = ({ User, GroupMembers }) => {
     Group.belongsToMany(User, {
-      as: 'Members',
+      as: 'members',
       through: GroupMembers,
       foreignKey: { name: 'groupId', field: 'group_id' }
     });

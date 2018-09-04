@@ -1,26 +1,25 @@
 import { IRouterContext } from 'koa-router';
-
 import { omit } from 'lodash';
 
-class Users {
-  fetchAll = async (ctx: IRouterContext) => {
-    const { User } = ctx.models;
+import Crud from './crud';
+import models from '../models';
 
-    ctx.body = await User.findAll();
+class Users extends Crud {
+  constructor() {
+    super(models.User);
+  }
+
+  fetchAll = (ctx: IRouterContext) => {
+    return this._findAll(ctx, { where: { role: 'user' } });
   };
 
-  fetchById = async (ctx: IRouterContext) => {
-    const { User } = ctx.models;
-    const { id } = ctx.params;
-
-    const user = await User.findById(id);
-    ctx.assert(user, 404);
-    ctx.body = user;
+  fetchById = (ctx: IRouterContext) => {
+    return this._findById(ctx);
   };
 
   editProfile = async (ctx: IRouterContext) => {
     const { User } = ctx.models;
-    const data = omit(ctx.request.body, ['photo']);
+    const data = omit(ctx.request.body, ['image']);
     const { user } = ctx.state;
 
     await user.update(data);

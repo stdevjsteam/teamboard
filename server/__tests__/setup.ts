@@ -1,22 +1,25 @@
+import './mock';
 import { agent } from 'supertest';
 import { SuperAgentRequest } from 'superagent';
+import * as casual from 'casual';
 
 import { callback } from '../src';
-import { admin, user } from './mock';
 import models from '../src/models';
 import { auth } from '../src/services';
 
-const defaults = require('superagent-defaults');
+import * as defaults from 'superagent-defaults';
 
 const fn = async () => {
   try {
-    console.log('setup');
     const { User, sequelize } = models;
 
     await sequelize.sync({ force: true });
 
     const userApi = defaults(agent(callback));
     const adminApi = defaults(agent(callback));
+
+    const user = casual.user({ role: 'user' });
+    const admin = casual.user({ role: 'admin' });
 
     await User.bulkCreate([admin, user]);
 
@@ -42,8 +45,17 @@ const fn = async () => {
       return req;
     });
 
-    global.admin = { details: admin, tokens: adminTokens, api: adminApi };
-    global.user = { details: user, tokens: userTokens, api: userApi };
+    global.admin = {
+      details: admin,
+      tokens: adminTokens,
+      api: adminApi
+    };
+
+    global.user = {
+      details: user,
+      tokens: userTokens,
+      api: userApi
+    };
   } catch (e) {
     console.log(e);
   }

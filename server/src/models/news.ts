@@ -18,8 +18,7 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
       }
     },
     image: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     }
   });
 

@@ -15,7 +15,8 @@ export interface User extends Base {
   lastName: string;
   email: string;
   password: string;
-  photo: string;
+  plainPassword?: string;
+  image: string;
 }
 
 export interface Token extends Base {

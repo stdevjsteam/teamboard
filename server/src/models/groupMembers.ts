@@ -1,4 +1,5 @@
 import { SequelizeStatic, Sequelize as _Sequelize } from 'sequelize';
+import { GroupRoles } from '../types';
 
 export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
   const GroupMembers = sequelize.define('group_members', {
@@ -8,7 +9,7 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
       autoIncrement: true
     },
     role: {
-      type: DataTypes.ENUM('member', 'tl', 'pm'),
+      type: DataTypes.ENUM(GroupRoles.member, GroupRoles.tl, GroupRoles.pm),
       allowNull: false
     }
   });

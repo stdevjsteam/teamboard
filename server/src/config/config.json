@@ -24,9 +24,6 @@
       "underscored": true,
       "createdAt": false,
       "updatedAt": false
-    },
-    "query": {
-      "raw": true
     }
   }
 }

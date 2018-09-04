@@ -36,9 +36,8 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
           len: [6, 60]
         }
       },
-      photo: {
-        type: DataTypes.STRING,
-        allowNull: false
+      image: {
+        type: DataTypes.STRING
       },
       role: {
         type: DataTypes.ENUM('admin', 'user')
@@ -55,7 +54,7 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
 
   User.associate = ({ Group, GroupMembers }) => {
     User.belongsToMany(Group, {
-      as: 'Groups',
+      as: 'groups',
       through: GroupMembers,
       foreignKey: { name: 'memberId', field: 'member_id' }
     });

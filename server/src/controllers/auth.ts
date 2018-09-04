@@ -13,8 +13,7 @@ class Auth {
       const { body } = ctx.request;
 
       const user = await User.unscoped().findOne({
-        where: { email: body.email },
-        raw: false
+        where: { email: body.email }
       });
 
       if (!user) {
@@ -83,8 +82,7 @@ class Auth {
     const { User, Token } = ctx.models;
 
     const resetPassword = await Token.findOne({
-      where: { code, purpose: TokenPurposes.resetPassword },
-      raw: false
+      where: { code, purpose: TokenPurposes.resetPassword }
     });
 
     ctx.assert(resetPassword, 400, 'Code is wrong');

@@ -10,19 +10,13 @@ class Invitations {
     const { Token, User } = ctx.models;
     const code = generateRandomNumber(100000, 999999);
 
-    const invitation = await Token.findOne({
-      where: { email, purpose: TokenPurposes.inviteUser }
-    });
-
-    ctx.assert(
-      !invitation,
-      400,
-      'Invitation to this email has already been sent'
-    );
-
     const user = await User.findOne({ where: { email } });
 
     ctx.assert(!user, 400, 'Such user already exists');
+
+    await Token.destroy({
+      where: { email, purpose: TokenPurposes.inviteUser }
+    });
 
     await Token.create({ email, code, purpose: TokenPurposes.inviteUser });
 
@@ -54,8 +48,7 @@ class Invitations {
     const { User, Token } = ctx.models;
 
     const invitation = await Token.findOne({
-      where: { code, purpose: TokenPurposes.inviteUser },
-      raw: false
+      where: { code, purpose: TokenPurposes.inviteUser }
     });
 
     ctx.assert(invitation, 400, 'Code is wrong');

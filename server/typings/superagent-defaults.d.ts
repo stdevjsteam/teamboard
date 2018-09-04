@@ -1,8 +1,7 @@
 declare module 'superagent-defaults' {
-  import { SuperAgent, SuperAgentRequest } from 'superagent';
   import { SuperTest, Test } from 'supertest';
 
-  interface Defaults extends SuperAgent<SuperAgentRequest> {
+  export interface Defaults extends SuperTest<Test> {
     use(req: any): void;
   }
 

@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 
-type Params = {
+interface Params {
   oldPath: string;
   newPath: string;
   file: string;
-};
+}
 
 export const upload = ({ oldPath, newPath, file }: Params): Promise<string> =>
   new Promise(async (resolve, reject) => {

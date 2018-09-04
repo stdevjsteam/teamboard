@@ -2,22 +2,22 @@ import { Response } from 'supertest';
 import models from '../../src/models';
 
 describe('auth controller', () => {
-  describe('POST /auth/sign-in', () => {
-    it('should return an error when email is wrong', () => {
+  describe('signIn', () => {
+    test('should return an error when email is wrong', () => {
       return user.api
         .post('/auth/sign-in')
         .send({ email: 'wrong_email@gmail.com' })
         .expect(400);
     });
 
-    it('should return an error when password is wrong', () => {
+    test('should return an error when password is wrong', () => {
       return user.api
         .post('/auth/sign-in')
         .send({ email: user.details.email, password: 'wrong_password' })
         .expect(400);
     });
 
-    it('should give us tokens', () => {
+    test('should give us tokens', () => {
       return user.api
         .post('/auth/sign-in')
         .send({
@@ -32,15 +32,15 @@ describe('auth controller', () => {
     });
   });
 
-  describe('POST /auth/refresh-token', () => {
-    it('should return 400 in case the provided refresh token is wrong', () => {
+  describe('refreshToken', () => {
+    test('should return 400 in case the provided refresh token is wrong', () => {
       return user.api
         .post('/auth/refresh-token')
         .send({ refreshToken: 'wrong_token' })
         .expect(400);
     });
 
-    it('should give us refreshed token', () => {
+    test('should give us refreshed token', () => {
       return user.api
         .post('/auth/refresh-token')
         .send({ refreshToken: user.tokens.refreshToken })
@@ -51,12 +51,12 @@ describe('auth controller', () => {
     });
   });
 
-  describe('POST /auth/forgot-password', () => {
+  describe('forgotPassword', () => {
     afterEach(() => {
       return models.Token.destroy({ where: {} });
     });
 
-    it('should return an error if token has already been sent', async () => {
+    test('should return an error if token has already been sent', async () => {
       await admin.api
         .post('/auth/forgot-password')
         .send({ email: user.details.email });
@@ -67,14 +67,14 @@ describe('auth controller', () => {
         .expect(400);
     });
 
-    it('should return an error if such email is not registered', () => {
+    test('should return an error if such email is not registered', () => {
       return admin.api
         .post('/auth/forgot-password')
         .send({ email: 'wrong_email@gmail.com' })
         .expect(400);
     });
 
-    it('should email us a token for resetting the password', () => {
+    test('should email us a token for resetting the password', () => {
       return admin.api
         .post('/auth/forgot-password')
         .send({ email: user.details.email })
@@ -82,22 +82,21 @@ describe('auth controller', () => {
     });
   });
 
-  describe('POST /auth/reset-password', () => {
-    it('should return an error when code is wrong', () => {
+  describe('resetPassword', () => {
+    test('should return an error when code is wrong', () => {
       return user.api
         .post('/auth/reset-password')
         .send({ code: 123456 })
         .expect(400);
     });
 
-    it('should reset the password', async () => {
+    test('should reset the password', async () => {
       await admin.api
         .post('/auth/forgot-password')
         .send({ email: user.details.email });
 
       const resetPassword = await models.Token.findOne({
-        where: { email: user.details.email },
-        raw: false
+        where: { email: user.details.email }
       });
 
       await user.api
@@ -106,8 +105,7 @@ describe('auth controller', () => {
         .expect(200);
 
       const resetPassword2 = await models.Token.findOne({
-        where: { email: user.details.email },
-        raw: false
+        where: { email: user.details.email }
       });
 
       expect(resetPassword2).toBeNull();

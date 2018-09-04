@@ -8,7 +8,7 @@ router.get('/:id', groups.fetchById);
 router.post('/', groups.create);
 router.patch('/:id', groups.updateById);
 router.delete('/:id', groups.deleteById);
-router.post('/:id/members', groups.addMembers);
-router.post('/:id/members/destroy', groups.deleteMembers);
+router.post('/:id/add-members', groups.addMembers);
+router.post('/:id/delete-members', groups.deleteMembers);
 
 export default router;
