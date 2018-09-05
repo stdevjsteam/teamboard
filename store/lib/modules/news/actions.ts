@@ -62,7 +62,7 @@ export const updateNews = (id: Id, body: UpdateNewsBody): ApiAction => ({
       constants.UPDATE_NEWS_FAILURE
     ],
     endpoint: `/news/${id}`,
-    method: 'PATCH',
+    method: "PATCH",
     schema: news,
     body
   }

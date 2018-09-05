@@ -65,6 +65,6 @@
     "serve": "NODE_ENV=production node ./build",
     "tslint": "tslint --project ./tsconfig.json",
     "test": "NODE_PATH=src TS_NODE_FILES=true jest --forceExit --runInBand",
-    "sequelize": "node_modules/.bin/sequelize"
+    "seed": "node_modules/.bin/sequelize db:seed:all"
   }
 }

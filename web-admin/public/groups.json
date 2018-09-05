@@ -1,0 +1,36 @@
+{
+  "groups": {
+    "name": "dadaadf",
+    "users": [
+      {
+        "id": 1,
+        "fistname": "Vache",
+        "lastname": "Khanoyan",
+        "role": "member"
+      },
+      {
+        "id": 2,
+        "fistname": "John",
+        "lastname": "Baldaryan",
+        "role": "member"
+      }
+    ]
+  },
+  "Users": [
+    { "id": 1, "fistname": "werf", "lastname": "Khanoyan", "role": "member" },
+    { "id": 2, "fistname": "fwef", "lastname": "Baldaryan", "role": "member" },
+    {
+      "id": 3,
+      "fistname": "wergfwer",
+      "lastname": "Mkrtchyan",
+      "role": "member"
+    },
+    { "id": 4, "fistname": "gwergf", "lastname": "Sahakyan", "role": "member" },
+    {
+      "id": 5,
+      "fistname": "Manvel",
+      "lastname": "Eghiazaryan",
+      "role": "teamLead"
+    }
+  ]
+}

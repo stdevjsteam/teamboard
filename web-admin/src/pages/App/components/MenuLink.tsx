@@ -1,6 +1,6 @@
-import React from 'react';
-import { Route, Link } from 'react-router-dom';
-import { Menu, Icon } from 'antd';
+import React from "react";
+import { Route, Link } from "react-router-dom";
+import { Menu, Icon } from "antd";
 
 type Props = {
   to: string;
@@ -19,7 +19,7 @@ const MenuLink = ({ to, exact, icon, title }: Props) => (
         onItemHover={() => {}}
         onClick={() => {}}
         className={
-          match ? 'ant-menu-item ant-menu-item-selected' : 'ant-menu-item'
+          match ? "ant-menu-item ant-menu-item-selected" : "ant-menu-item"
         }
       >
         <Link to={to}>

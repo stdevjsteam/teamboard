@@ -1,179 +1,198 @@
-// import React, { Component } from 'react';
-// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React, { Component } from "react";
+import { Table } from "antd";
 
-// // fake data generator
-// const getItems = (count, offset = 0) =>
-//   Array.from({ length: count }, (v, k) => k).map(k => ({
-//     id: `item-${k + offset}`,
-//     content: `item ${k + offset}`
-//   }));
+// import DocumentTitle from "react-document-title";
+import { connect } from "react-redux";
+import { groups, entities, common } from "teamboard-store";
+// import { Link } from "react-router-dom";
 
-// // a little function to help us with reordering the result
-// const reorder = (list, startIndex, endIndex) => {
-//   const result = Array.from(list);
-//   const [removed] = result.splice(startIndex, 1);
-//   result.splice(endIndex, 0, removed);
-
-//   return result;
-// };
-
-// /**
-//  * Moves an item from one list to another list.
-//  */
-// const move = (source, destination, droppableSource, droppableDestination) => {
-//   const sourceClone = Array.from(source);
-//   const destClone = Array.from(destination);
-//   const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-//   destClone.splice(droppableDestination.index, 0, removed);
-
-//   const result = {};
-//   result[droppableSource.droppableId] = sourceClone;
-//   result[droppableDestination.droppableId] = destClone;
-
-//   return result;
-// };
-
-// const grid = 8;
-
-// const getItemStyle = (isDragging, draggableStyle) => ({
-//   // some basic styles to make the items look a bit nicer
-//   userSelect: 'none',
-//   padding: grid * 2,
-//   margin: `0 0 ${grid}px 0`,
-
-//   // change background colour if dragging
-//   background: isDragging ? 'lightgreen' : 'grey',
-
-//   // styles we need to apply on draggables
-//   ...draggableStyle
-// });
-
-// const getListStyle = isDraggingOver => ({
-//   background: isDraggingOver ? 'lightblue' : 'lightgrey',
-//   padding: grid,
-//   width: 250
-// });
-
-// class App extends Component {
-//   state = {
-//     items: getItems(10),
-//     selected: getItems(5, 10)
-//   };
-
-//   /**
-//    * A semi-generic way to handle multiple lists. Matches
-//    * the IDs of the droppable container to the names of the
-//    * source arrays stored in the state.
-//    */
-//   id2List = {
-//     droppable: 'items',
-//     droppable2: 'selected'
-//   };
-
-//   getList = id => this.state[this.id2List[id]];
-
-//   onDragEnd = result => {
-//     const { source, destination } = result;
-
-//     // dropped outside the list
-//     if (!destination) {
-//       return;
-//     }
-
-//     if (source.droppableId === destination.droppableId) {
-//       const items = reorder(
-//         this.getList(source.droppableId),
-//         source.index,
-//         destination.index
-//       );
-
-//       let state: any = { items };
-
-//       if (source.droppableId === 'droppable2') {
-//         state = { selected: items };
-//       }
-
-//       this.setState(state);
-//     } else {
-//       const result = move(
-//         this.getList(source.droppableId),
-//         this.getList(destination.droppableId),
-//         source,
-//         destination
-//       );
-
-//       this.setState({
-//         items: (result as any).droppable,
-//         selected: (result as any).droppable2
-//       });
-//     }
-//   };
-
-//   // Normally you would want to split things out into separate components.
-//   // But in this example everything is just done in one place for simplicity
-//   render() {
-//     return (
-//       <DragDropContext onDragEnd={this.onDragEnd}>
-//         <div style={{ display: 'flex' }}>
-//           <Droppable droppableId="droppable">
-//             {(provided, snapshot) => (
-//               <div
-//                 ref={provided.innerRef}
-//                 style={getListStyle(snapshot.isDraggingOver)}
-//               >
-//                 {this.state.items.map((item, index) => (
-//                   <Draggable key={item.id} draggableId={item.id} index={index}>
-//                     {(provided, snapshot) => (
-//                       <div
-//                         ref={provided.innerRef}
-//                         {...provided.draggableProps}
-//                         {...provided.dragHandleProps}
-//                         style={getItemStyle(
-//                           snapshot.isDragging,
-//                           provided.draggableProps.style
-//                         )}
-//                       >
-//                         {item.content}
-//                       </div>
-//                     )}
-//                   </Draggable>
-//                 ))}
-//                 {provided.placeholder}
-//               </div>
-//             )}
-//           </Droppable>
-//           <Droppable droppableId="droppable2">
-//             {(provided, snapshot) => (
-//               <div
-//                 ref={provided.innerRef}
-//                 style={getListStyle(snapshot.isDraggingOver)}
-//               >
-//                 {this.state.selected.map((item, index) => (
-//                   <Draggable key={item.id} draggableId={item.id} index={index}>
-//                     {(provided, snapshot) => (
-//                       <div
-//                         ref={provided.innerRef}
-//                         {...provided.draggableProps}
-//                         {...provided.dragHandleProps}
-//                         style={getItemStyle(
-//                           snapshot.isDragging,
-//                           provided.draggableProps.style
-//                         )}
-//                       >
-//                         {item.content}
-//                       </div>
-//                     )}
-//                   </Draggable>
-//                 ))}
-//                 {provided.placeholder}
-//               </div>
-//             )}
-//           </Droppable>
-//         </div>
-//       </DragDropContext>
-//     );
+// const data = [
+//   {
+//     key: "1",
+//     name: "John Brown",
+//     age: 32,
+//     address: "New York No. 1 Lake Park",
+//     tags: ["nice", "developer"]
+//   },
+//   {
+//     key: "2",
+//     name: "Jim Green",
+//     age: 42,
+//     address: "London No. 1 Lake Park",
+//     tags: ["loser"]
+//   },
+//   {
+//     key: "1",
+//     name: "John Brown",
+//     age: 32,
+//     address: "New York No. 1 Lake Park",
+//     tags: ["nice", "developer"]
+//   },
+//   {
+//     key: "2",
+//     name: "Jim Green",
+//     age: 42,
+//     address: "London No. 1 Lake Park",
+//     tags: ["loser"]
+//   },
+//   {
+//     key: "1",
+//     name: "John Brown",
+//     age: 32,
+//     address: "New York No. 1 Lake Park",
+//     tags: ["nice", "developer"]
+//   },
+//   {
+//     key: "2",
+//     name: "Jim Green",
+//     age: 42,
+//     address: "London No. 1 Lake Park",
+//     tags: ["loser"]
+//   },
+//   {
+//     key: "1",
+//     name: "John Brown",
+//     age: 32,
+//     address: "New York No. 1 Lake Park",
+//     tags: ["nice", "developer"]
+//   },
+//   {
+//     key: "2",
+//     name: "Jim Green",
+//     age: 42,
+//     address: "London No. 1 Lake Park",
+//     tags: ["loser"]
+//   },
+//   {
+//     key: "1",
+//     name: "John Brown",
+//     age: 32,
+//     address: "New York No. 1 Lake Park",
+//     tags: ["nice", "developer"]
+//   },
+//   {
+//     key: "2",
+//     name: "Jim Green",
+//     age: 42,
+//     address: "London No. 1 Lake Park",
+//     tags: ["loser"]
+//   },
+//   {
+//     key: "1",
+//     name: "John Brown",
+//     age: 32,
+//     address: "New York No. 1 Lake Park",
+//     tags: ["nice", "developer"]
+//   },
+//   {
+//     key: "2",
+//     name: "Jim Green",
+//     age: 42,
+//     address: "London No. 1 Lake Park",
+//     tags: ["loser"]
+//   },
+//   {
+//     key: "3",
+//     name: "Joe Black",
+//     age: 32,
+//     address: "Sidney No. 1 Lake Park",
+//     tags: ["cool", "teacher"]
 //   }
-// }
+// ];
+type Props = {
+  groups: entities.Groups[];
+  dispatch: common.Dispatch;
+};
 
-// export default App;
+class GroupList extends Component<Props> {
+  static loadData = ({ store }) => {
+    console.log("vay qu araaaaaaaaa");
+    return store.dispatch(groups.fetchGroups());
+  };
+  //   showConfirm = ({ title, id }: entities.InterestingToKnow) => {
+  //     const { dispatch } = this.props;
+
+  //     Modal.confirm({
+  //       title: `Do you want to delete "${title}" ?`,
+  //       onOk() {
+  //         dispatch(interestingToKnow.deleteInterestingToKnow(id));
+  //       }
+  //     });
+  //   };
+
+  render() {
+    const columns = [
+      {
+        title: "ID",
+        dataIndex: "id",
+        key: "id",
+        render: text => <a href="javascript:;">{text}</a>
+      },
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name"
+      },
+      {
+        title: "Count",
+        dataIndex: "count",
+        key: "count"
+      },
+
+      {
+        title: "Action",
+        key: "action",
+        render: (text, record) => (
+          <span>
+            <a href="javascript:;">Edit</a>
+          </span>
+        )
+      }
+    ];
+    const data: { key: number; name: string; count: number }[] = [];
+    this.props.groups.map((elem, i) => {
+      console.log(elem);
+      let tablefield = {
+        id: i + 1,
+        key: i,
+        name: elem.name,
+        count: elem.users.length
+      };
+      data.push(tablefield);
+    });
+    console.log("dfada", data);
+    return (
+      <div>
+        {" "}
+        <Table columns={columns} dataSource={data} pagination={false} />
+      </div>
+
+      //   <DocumentTitle title="interestingToKnow">
+      //     <div>
+      //       <Row type="flex" justify="end">
+      //         <Col xs={24} md={2}>
+      //           <Link
+      //             to="/interestingToKnow/add"
+      //             style={{
+      //               marginBottom: "30px",
+      //               display: "block"
+      //             }}
+      //           >
+      //             <Button type="primary" style={{ width: "100%" }}>
+      //               Add
+      //             </Button>
+      //           </Link>
+      //         </Col>
+      //       </Row>
+      //     </div>
+
+      //   </DocumentTitle>
+    );
+  }
+}
+
+export default connect((state: common.StoreState) => {
+  return {
+    groups: state.groups.list.map(id => state.entities.groups[id])
+  };
+})(GroupList as any);

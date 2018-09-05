@@ -8,12 +8,12 @@ import {
 } from "megadraft";
 import "megadraft/dist/css/megadraft.css";
 import DocumentTitle from "react-document-title";
-import { news, common, entities } from "teamboard-store";
+import { interestingToKnow, common, entities } from "teamboard-store";
 import ImageUpload from "./components/ImageUpload";
 type Props = {
-  _news: entities.News;
+  _interestingToKnow: entities.InterestingToKnow;
 };
-class NewsItem extends React.Component<Props & any> {
+class InterestingToKnowItem extends React.Component<Props & any> {
   state = {
     editorState: editorStateFromRaw(null),
     title: "",
@@ -25,22 +25,26 @@ class NewsItem extends React.Component<Props & any> {
       return;
     }
 
-    return store.dispatch(news.fetchCurrentNews(match.params.id));
+    return store.dispatch(
+      interestingToKnow.fetchCurrentInterestingToKnow(match.params.id)
+    );
   }
 
   componentDidMount() {
     if (this.props.match.params.id) {
-      const { currentNews } = this.props;
+      const { currentInterestingToKnow } = this.props;
 
       this.setState({
-        title: currentNews.title,
-        editorState: editorStateFromRaw(JSON.parse(currentNews.body))
+        title: currentInterestingToKnow.title,
+        editorState: editorStateFromRaw(
+          JSON.parse(currentInterestingToKnow.body)
+        )
       });
     }
   }
 
   componentWillUnmount() {
-    this.props.dispatch(news.clearCurrentNews());
+    this.props.dispatch(interestingToKnow.clearCurrentInterestingToKnow());
   }
 
   onChange = editorState => {
@@ -56,7 +60,7 @@ class NewsItem extends React.Component<Props & any> {
     const { dispatch, history } = this.props;
 
     const { response } = await dispatch(
-      news.createNews({
+      interestingToKnow.createInterestingToKnow({
         body: editorStateToJSON(editorState),
         title: title
       })
@@ -64,7 +68,7 @@ class NewsItem extends React.Component<Props & any> {
 
     if (response) {
       message.success(`"${title}" is successfully added`);
-      history.push("/");
+      history.push("/interesting_to_know");
     }
   };
 
@@ -73,7 +77,7 @@ class NewsItem extends React.Component<Props & any> {
     const { dispatch, history, match } = this.props;
 
     const { response } = await dispatch(
-      news.updateNews(match.params.id, {
+      interestingToKnow.updateInterestingToKnow(match.params.id, {
         body: editorStateToJSON(editorState),
         title: title
       })
@@ -81,12 +85,12 @@ class NewsItem extends React.Component<Props & any> {
 
     if (response) {
       message.success(`"${title}" is successfully updated`);
-      history.push("/");
+      history.push("/interesting_to_know");
     }
   };
 
   render() {
-    const { currentNews } = this.props;
+    const { currentInterestingToKnow } = this.props;
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -100,15 +104,21 @@ class NewsItem extends React.Component<Props & any> {
 
     return (
       <Fragment>
-        <DocumentTitle title={currentNews ? currentNews.title : "Add News"}>
+        <DocumentTitle
+          title={
+            currentInterestingToKnow
+              ? currentInterestingToKnow.title
+              : "Add Interesting To Know"
+          }
+        >
           <div style={{ padding: "20px 60px" }}>
             <Row gutter={16} style={{ marginBottom: "30px" }}>
               <Form.Item {...formItemLayout} label="Photo">
-                <ImageUpload _news={currentNews} />
+                <ImageUpload _interestingToKnow={currentInterestingToKnow} />
               </Form.Item>
               <Col xs={24} md={20} style={{ marginBottom: "10px" }}>
                 <Input
-                  placeholder="Type the name of the news"
+                  placeholder="Type the name of the interesting to know"
                   value={this.state.title}
                   onChange={e => {
                     this.setState({ title: e.target.value });
@@ -119,9 +129,9 @@ class NewsItem extends React.Component<Props & any> {
                 <Button
                   type="primary"
                   style={{ width: "100%" }}
-                  onClick={currentNews ? this.onEdit : this.onAdd}
+                  onClick={currentInterestingToKnow ? this.onEdit : this.onAdd}
                 >
-                  {currentNews ? "Edit" : "Add"}
+                  {currentInterestingToKnow ? "Edit" : "Add"}
                 </Button>
               </Col>
             </Row>
@@ -138,7 +148,7 @@ class NewsItem extends React.Component<Props & any> {
             <MegadraftEditor
               editorState={this.state.editorState}
               onChange={this.onChange}
-              placeholder="Let's build your news together :)"
+              placeholder="Let's build your interesting To Know together :)"
             />
           </div>
         </DocumentTitle>
@@ -149,8 +159,9 @@ class NewsItem extends React.Component<Props & any> {
 
 const mapStateToProps = (state: common.StoreState) => {
   return {
-    currentNews: state.entities.news[state.news.current!]
+    currentInterestingToKnow:
+      state.entities.interestingToKnow[state.interestingToKnow.current!]
   };
 };
 
-export default connect(mapStateToProps)(NewsItem);
+export default connect(mapStateToProps)(InterestingToKnowItem);

@@ -1,16 +1,22 @@
-import React, { Component } from 'react';
-import { Row, Col, Input, Button, Form, message } from 'antd';
-import DocumentTitle from 'react-document-title';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { invitations, common } from 'teamboard-store';
+import React, { Component } from "react";
+import { Row, Col, Input, Button, Form, Modal, message } from "antd";
+import DocumentTitle from "react-document-title";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { invitations, common } from "teamboard-store";
 
 type Props = {
   dispatch: common.Dispatch;
+  handleInvitEmployee: any;
 };
 
 class InviteEmployees extends Component<Props> {
-  state = { email: '', isLoading: false };
+  state = {
+    email: "",
+    isLoading: false,
+    loading: false,
+    visible: true
+  };
 
   onInvite = async () => {
     const { dispatch } = this.props;
@@ -20,42 +26,62 @@ class InviteEmployees extends Component<Props> {
 
     const action: any = await dispatch(invitations.sendCode({ email }));
 
-    this.setState({ isLoading: false });
+    this.setState({ isLoading: false, visible: false });
 
     if (action.response) {
-      this.setState({ email: '' });
+      this.setState({ email: "" });
       message.success(action.response.message);
     }
   };
+  handleOk = () => {
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ loading: false, visible: false });
+    }, 3000);
+  };
 
+  handleCancel = () => {
+    this.props.handleInvitEmployee();
+    this.setState({ visible: false });
+  };
   render() {
+    const { visible, loading } = this.state;
     return (
       <DocumentTitle title="Invite Employees">
-        <Row gutter={16} type="flex" justify="center" align="middle">
-          <Col xl={8} lg={12} md={16} xs={24}>
-            <Row gutter={16} type="flex">
-              <Col xs={24} md={18} style={{ marginBottom: '10px' }}>
-                <Input
-                  placeholder="Email"
-                  onChange={e => {
-                    this.setState({ email: e.target.value });
-                  }}
-                  value={this.state.email}
-                />
-              </Col>
-              <Col xs={24} md={6}>
-                <Button
-                  type="primary"
-                  style={{ width: '100%' }}
-                  onClick={this.onInvite}
-                  loading={this.state.isLoading}
-                >
-                  Invite
-                </Button>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+        <Modal
+          visible={visible}
+          title="Invite Employees"
+          onOk={this.handleOk}
+          bodyStyle={{ height: "100px" }}
+          onCancel={this.handleCancel}
+          footer={""}
+        >
+          <Row>
+            <Col span={17}>
+              <Input
+                placeholder="Email"
+                onChange={e => {
+                  this.setState({ email: e.target.value });
+                }}
+                value={this.state.email}
+              />
+            </Col>
+            <Col span={1} />
+
+            <Col span={6}>
+              <Button
+                key="submit"
+                type="primary"
+                loading={loading}
+                style={{ width: "100%" }}
+                onClick={this.onInvite}
+                // onClick={this.handleOk}
+              >
+                Invite
+              </Button>
+            </Col>
+          </Row>
+        </Modal>
       </DocumentTitle>
     );
   }
@@ -64,4 +90,4 @@ class InviteEmployees extends Component<Props> {
 export default compose(
   connect(),
   Form.create()
-)(InviteEmployees);
+)(InviteEmployees) as any;

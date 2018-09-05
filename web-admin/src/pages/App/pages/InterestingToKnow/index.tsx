@@ -2,38 +2,38 @@ import React, { Component } from "react";
 import { List, Button, Modal, Row, Col } from "antd";
 import DocumentTitle from "react-document-title";
 import { connect } from "react-redux";
-import { news, entities, common } from "teamboard-store";
+import { interestingToKnow, entities, common } from "teamboard-store";
 import { Link } from "react-router-dom";
 
 type Props = {
-  news: entities.News[];
+  interestingToKnow: entities.InterestingToKnow[];
   dispatch: common.Dispatch;
 };
 
-class News extends Component<Props> {
+class InterestingToKnow extends Component<Props> {
   static loadData = ({ store }) => {
-    return store.dispatch(news.fetchNews());
+    return store.dispatch(interestingToKnow.fetchInterestingToKnow());
   };
 
-  showConfirm = ({ title, id }: entities.News) => {
+  showConfirm = ({ title, id }: entities.InterestingToKnow) => {
     const { dispatch } = this.props;
 
     Modal.confirm({
       title: `Do you want to delete "${title}" ?`,
       onOk() {
-        dispatch(news.deleteNews(id));
+        dispatch(interestingToKnow.deleteInterestingToKnow(id));
       }
     });
   };
 
   render() {
     return (
-      <DocumentTitle title="News">
+      <DocumentTitle title="interestingToKnow">
         <div>
           <Row type="flex" justify="end">
             <Col xs={24} md={2}>
               <Link
-                to="/news/add"
+                to="/interestingToKnow/add"
                 style={{
                   marginBottom: "30px",
                   display: "block"
@@ -50,11 +50,11 @@ class News extends Component<Props> {
             className="demo-loadmore-list"
             loading={false}
             itemLayout="horizontal"
-            dataSource={this.props.news}
+            dataSource={this.props.interestingToKnow}
             renderItem={item => (
               <List.Item
                 actions={[
-                  <Link to={`/news/${item.id}/edit`}>edit</Link>,
+                  <Link to={`/interestingToKnow/${item.id}/edit`}>edit</Link>,
                   <a
                     onClick={() => {
                       this.showConfirm(item);
@@ -76,6 +76,8 @@ class News extends Component<Props> {
 
 export default connect((state: common.StoreState) => {
   return {
-    news: state.news.list.map(id => state.entities.news[id])
+    interestingToKnow: state.interestingToKnow.list.map(
+      id => state.entities.interestingToKnow[id]
+    )
   };
-})(News as any);
+})(InterestingToKnow as any);
