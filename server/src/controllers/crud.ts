@@ -1,14 +1,14 @@
 import models from '../models';
 import { IRouterContext } from 'koa-router';
 import { omit } from 'lodash';
-import { FindOptions } from 'sequelize';
+import { WhereOptions } from 'sequelize';
 
 type Model =
   | typeof models.News
   | typeof models.User
   | typeof models.Token
   | typeof models.Group
-  | typeof models.GroupMembers
+  | typeof models.GroupMember
   | any;
 
 const include = (ctx: IRouterContext) => {
@@ -41,9 +41,9 @@ class Crud {
     this.model = model;
   }
 
-  public async _findAll(ctx: IRouterContext, options: FindOptions<Model> = {}) {
+  public async _findAll(ctx: IRouterContext, where: WhereOptions<any> = {}) {
     ctx.body = await this.model.findAndCountAll({
-      ...options,
+      where,
       ...include(ctx),
       ...paginate(ctx)
     });
@@ -51,12 +51,10 @@ class Crud {
 
   public async _findById(
     ctx: IRouterContext,
-    options: FindOptions<Model> = {}
+    where: WhereOptions<any> = { id: ctx.params.id }
   ) {
-    const { id } = ctx.params;
-
-    const news = await this.model.findById(id, {
-      ...options,
+    const news = await this.model.findOne({
+      where,
       ...include(ctx)
     });
 
@@ -74,11 +72,11 @@ class Crud {
     ctx.status = 201;
   }
 
-  public async _updateById(ctx: IRouterContext) {
+  public async _updateById(ctx: IRouterContext, where: WhereOptions<any> = {}) {
     const { id } = ctx.params;
 
     const result = await this.model.update(ctx.request.body, {
-      where: { id },
+      where: { id, ...where },
       returning: true
     });
 
@@ -89,10 +87,10 @@ class Crud {
     ctx.body = updatedData;
   }
 
-  public async _deleteById(ctx: IRouterContext) {
+  public async _deleteById(ctx: IRouterContext, where: WhereOptions<any> = {}) {
     const { id } = ctx.params;
 
-    const response = await this.model.destroy({ where: { id } });
+    const response = await this.model.destroy({ where: { id, ...where } });
 
     if (!response) {
       ctx.status = 404;

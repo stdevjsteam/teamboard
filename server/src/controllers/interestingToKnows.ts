@@ -2,9 +2,9 @@ import { IRouterContext } from 'koa-router';
 import models from '../models';
 import Crud from './crud';
 
-class News extends Crud {
+class InterestingToKnows extends Crud {
   constructor() {
-    super(models.News);
+    super(models.InterestingToKnow);
   }
 
   fetchAll__ADMIN = (ctx: IRouterContext) => {
@@ -16,10 +16,10 @@ class News extends Crud {
     const { user } = ctx.state;
 
     return this._findAll(ctx, Sequelize.literal(
-      `EXISTS(SELECT * from news_groups AS ng
+      `EXISTS(SELECT * from interesting_to_know_groups AS itkg
         INNER JOIN group_members as gm
-        ON gm.group_id = ng.group_id
-        and ng.news_id = news.id
+        ON gm.group_id = itkg.group_id
+        AND itkg.interesting_to_know_id = interesting_to_know.id
         AND gm.member_id = ${user.get('id')})`
     ) as any);
   };
@@ -34,10 +34,10 @@ class News extends Crud {
     const { id } = ctx.params;
 
     return this._findById(ctx, Sequelize.literal(
-      `news.id = ${id} AND EXISTS(SELECT * from news_groups AS ng
+      `interesting_to_know.id = ${id} AND EXISTS(SELECT * from interesting_to_know_groups AS itkg
         INNER JOIN group_members as gm
-        ON gm.group_id = ng.group_id
-        and ng.news_id = news.id
+        ON gm.group_id = itkg.group_id
+        and itkg.interesting_to_know_id = interesting_to_know.id
         AND gm.member_id = ${user.get('id')})`
     ) as any);
   };
@@ -55,28 +55,28 @@ class News extends Crud {
   };
 
   addGroups = async (ctx: IRouterContext) => {
-    const { NewsGroup } = ctx.models;
+    const { InterestingToKnowGroup } = ctx.models;
     const { id } = ctx.params;
     const { groupIds = [] } = ctx.request.body;
 
-    const newsGroups = groupIds.map((groupId: number) => ({
+    const interestingToKnowGroup = groupIds.map((groupId: number) => ({
       groupId,
-      newsId: id
+      interestingToKnowId: id
     }));
 
-    await NewsGroup.bulkCreate(newsGroups);
+    await InterestingToKnowGroup.bulkCreate(interestingToKnowGroup);
 
     ctx.body = '';
   };
 
   deleteGroups = async (ctx: IRouterContext) => {
-    const { NewsGroup, Sequelize } = ctx.models;
+    const { InterestingToKnowGroup, Sequelize } = ctx.models;
     const { id } = ctx.params;
     const { groupIds = [] } = ctx.request.body;
 
-    await NewsGroup.destroy({
+    await InterestingToKnowGroup.destroy({
       where: {
-        newsId: id,
+        interestingToKnowId: id,
         groupId: {
           [Sequelize.Op.or]: groupIds
         }
@@ -87,4 +87,4 @@ class News extends Crud {
   };
 }
 
-export default new News();
+export default new InterestingToKnows();

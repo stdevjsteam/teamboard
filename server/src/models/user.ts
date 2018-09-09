@@ -42,21 +42,41 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
       },
       role: {
         type: DataTypes.ENUM(UserRoles.admin, UserRoles.user)
+      },
+      position: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
+      phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          is: /([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/
+        }
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
       }
     },
     {
       defaultScope: {
-        attributes: { exclude: ['password', 'role'] }
+        attributes: { exclude: ['password', 'role', 'active'] }
       }
     }
   );
 
   User.addHook('beforeSave', hashPassword);
 
-  User.associate = ({ Group, GroupMembers }) => {
+  User.associate = ({ Group, GroupMember }) => {
     User.belongsToMany(Group, {
       as: 'groups',
-      through: GroupMembers,
+      through: GroupMember,
       foreignKey: { name: 'memberId', field: 'member_id' }
     });
   };

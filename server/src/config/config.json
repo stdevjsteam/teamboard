@@ -4,9 +4,11 @@
     "username": "postgres",
     "password": "root",
     "database": "employee_development",
-    "host": "127.0.0.1"
+    "host": "127.0.0.1",
+    "logging": true
   },
   "test": {
+    "logging": false,
     "dialect": "postgres",
     "username": "postgres",
     "password": "root",
@@ -14,7 +16,6 @@
     "host": "127.0.0.1"
   },
   "common": {
-    "logging": false,
     "operatorsAliases": false,
     "migrationStorage": "json",
     "migrationStoragePath": "sequelize-meta.json",

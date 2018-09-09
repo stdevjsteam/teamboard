@@ -4,3 +4,5 @@ export { default as invitations } from './invitations';
 export { default as me } from './me';
 export { default as news } from './news';
 export { default as users } from './users';
+export { default as interestingToKnows } from './interestingToKnows';
+export { default as events } from './events';

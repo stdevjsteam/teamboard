@@ -45,7 +45,7 @@ class Invitations {
 
   confirm = async (ctx: IRouterContext) => {
     const { code, user = {} } = ctx.request.body;
-    const userDetails = omit(user, ['id', 'email']);
+    const userDetails = omit(user, ['id', 'email', 'role', 'active']);
     const { User, Token } = ctx.models;
 
     const invitation = await Token.findOne({

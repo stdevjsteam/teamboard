@@ -2,9 +2,9 @@ import { IRouterContext } from 'koa-router';
 import models from '../models';
 import Crud from './crud';
 
-class News extends Crud {
+class Events extends Crud {
   constructor() {
-    super(models.News);
+    super(models.Event);
   }
 
   fetchAll__ADMIN = (ctx: IRouterContext) => {
@@ -16,10 +16,10 @@ class News extends Crud {
     const { user } = ctx.state;
 
     return this._findAll(ctx, Sequelize.literal(
-      `EXISTS(SELECT * from news_groups AS ng
+      `EXISTS(SELECT * from event_groups AS eg
         INNER JOIN group_members as gm
-        ON gm.group_id = ng.group_id
-        and ng.news_id = news.id
+        ON gm.group_id = eg.group_id
+        AND eg.event_id = event.id
         AND gm.member_id = ${user.get('id')})`
     ) as any);
   };
@@ -34,10 +34,10 @@ class News extends Crud {
     const { id } = ctx.params;
 
     return this._findById(ctx, Sequelize.literal(
-      `news.id = ${id} AND EXISTS(SELECT * from news_groups AS ng
+      `event.id = ${id} AND EXISTS(SELECT * from event_groups AS eg
         INNER JOIN group_members as gm
-        ON gm.group_id = ng.group_id
-        and ng.news_id = news.id
+        ON gm.group_id = eg.group_id
+        and eg.event_id = event.id
         AND gm.member_id = ${user.get('id')})`
     ) as any);
   };
@@ -55,28 +55,28 @@ class News extends Crud {
   };
 
   addGroups = async (ctx: IRouterContext) => {
-    const { NewsGroup } = ctx.models;
+    const { EventGroup } = ctx.models;
     const { id } = ctx.params;
     const { groupIds = [] } = ctx.request.body;
 
-    const newsGroups = groupIds.map((groupId: number) => ({
+    const data = groupIds.map((groupId: number) => ({
       groupId,
-      newsId: id
+      eventId: id
     }));
 
-    await NewsGroup.bulkCreate(newsGroups);
+    await EventGroup.bulkCreate(data);
 
     ctx.body = '';
   };
 
   deleteGroups = async (ctx: IRouterContext) => {
-    const { NewsGroup, Sequelize } = ctx.models;
+    const { EventGroup, Sequelize } = ctx.models;
     const { id } = ctx.params;
     const { groupIds = [] } = ctx.request.body;
 
-    await NewsGroup.destroy({
+    await EventGroup.destroy({
       where: {
-        newsId: id,
+        eventId: id,
         groupId: {
           [Sequelize.Op.or]: groupIds
         }
@@ -87,4 +87,4 @@ class News extends Crud {
   };
 }
 
-export default new News();
+export default new Events();

@@ -15,7 +15,8 @@ import {
   extendContext,
   authorization,
   isAdmin,
-  isUser
+  isUser,
+  checkUserStatus
 } from './middleware';
 import * as admin from './routes/admin';
 import * as user from './routes/user';
@@ -35,13 +36,13 @@ app.use(transformer());
 app.use(errorHandler());
 app.use(extendContext());
 app.use(authorization().unless({ path: /^\/auth/ }));
+app.use(checkUserStatus().unless({ path: /^\/auth/ }));
 
 // admin routes
 const subdomain = new Subdomain();
 const adminRouter = new Router();
 
 adminRouter.use(
-  '*',
   isAdmin().unless({ path: /^\/auth/ }),
   admin.auth.routes(),
   admin.files.routes(),
@@ -49,7 +50,9 @@ adminRouter.use(
   admin.me.routes(),
   admin.news.routes(),
   admin.users.routes(),
-  admin.groups.routes()
+  admin.groups.routes(),
+  admin.interestingToKnows.routes(),
+  admin.events.routes()
 );
 
 subdomain.use('admin', adminRouter.routes());
@@ -63,7 +66,9 @@ userRouter.use(
   user.invitations.routes(),
   user.me.routes(),
   user.news.routes(),
-  user.users.routes()
+  user.users.routes(),
+  user.interestingToKnows.routes(),
+  user.events.routes()
 );
 
 app.use(subdomain.routes());

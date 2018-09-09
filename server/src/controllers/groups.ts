@@ -34,11 +34,11 @@ class Groups extends Crud {
   };
 
   addMembers = async (ctx: IRouterContext) => {
-    const { GroupMembers } = ctx.models;
+    const { GroupMember } = ctx.models;
     const { id } = ctx.params;
     const members: Member[] = ctx.request.body.members || [];
 
-    const groupMembers = members.map(member => {
+    const groupMember = members.map(member => {
       return {
         groupId: id,
         memberId: member.id,
@@ -46,17 +46,17 @@ class Groups extends Crud {
       };
     });
 
-    await GroupMembers.bulkCreate(groupMembers);
+    await GroupMember.bulkCreate(groupMember);
 
     ctx.body = '';
   };
 
   deleteMembers = async (ctx: IRouterContext) => {
-    const { GroupMembers, Sequelize } = ctx.models;
+    const { GroupMember, Sequelize } = ctx.models;
     const { id } = ctx.params;
     const { memberIds = [] } = ctx.request.body;
 
-    await GroupMembers.destroy({
+    await GroupMember.destroy({
       where: {
         groupId: id,
         memberId: {

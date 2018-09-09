@@ -1,7 +1,7 @@
 import { SequelizeStatic, Sequelize as _Sequelize } from 'sequelize';
 
 export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
-  const News = sequelize.define('news', {
+  const InterestingToKnow = sequelize.define('interesting_to_know', {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -30,13 +30,16 @@ export default (sequelize: _Sequelize, DataTypes: SequelizeStatic) => {
     }
   });
 
-  News.associate = ({ Group, NewsGroup }) => {
-    News.belongsToMany(Group, {
+  InterestingToKnow.associate = ({ Group, InterestingToKnowGroup }) => {
+    InterestingToKnow.belongsToMany(Group, {
       as: 'groups',
-      through: NewsGroup,
-      foreignKey: { name: 'newsId', field: 'news_id' }
+      through: InterestingToKnowGroup,
+      foreignKey: {
+        name: 'interestingToKnowId',
+        field: 'interesting_to_know_id'
+      }
     });
   };
 
-  return News;
+  return InterestingToKnow;
 };

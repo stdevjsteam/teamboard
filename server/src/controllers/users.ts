@@ -11,16 +11,24 @@ class Users extends Crud {
   }
 
   fetchAll = (ctx: IRouterContext) => {
-    return this._findAll(ctx, { where: { role: UserRoles.user } });
+    return this._findAll(ctx, { role: UserRoles.user });
   };
 
   fetchById = (ctx: IRouterContext) => {
     return this._findById(ctx);
   };
 
+  updateById = (ctx: IRouterContext) => {
+    return this._updateById(ctx, { role: UserRoles.user });
+  };
+
+  deleteById = (ctx: IRouterContext) => {
+    return this._deleteById(ctx, { role: UserRoles.user });
+  };
+
   editProfile = async (ctx: IRouterContext) => {
     const { User } = ctx.models;
-    const data = omit(ctx.request.body, ['image']);
+    const data = omit(ctx.request.body, ['image', 'role', 'active']);
     const { user } = ctx.state;
 
     await user.update(data);
