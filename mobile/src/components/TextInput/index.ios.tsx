@@ -6,7 +6,7 @@ class Input extends Component<TextInputProps> {
 
   render() {
     const { focused } = this.state;
-    console.log(this.props.value);
+
     return (
       <View
         style={[

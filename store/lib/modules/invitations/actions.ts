@@ -17,3 +17,20 @@ export const sendCode = (body: SendCodeBody): ApiAction => ({
     body
   }
 });
+
+type CheckCodeBody = {
+  code: string;
+};
+
+export const checkCode = (body: CheckCodeBody): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.CHECK_CODE_REQUEST,
+      constants.CHECK_CODE_SUCCESS,
+      constants.CHECK_CODE_FAILURE
+    ],
+    endpoint: `/invitations/check-code`,
+    method: 'POST',
+    body
+  }
+});

@@ -7,7 +7,7 @@
     "module": "es6",
     "moduleResolution": "node",
     "noEmit": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "target": "es6"
   },
   "exclude": ["node_modules"]

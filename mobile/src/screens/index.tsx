@@ -1,13 +1,22 @@
 import { Navigation } from 'react-native-navigation';
+import { Provider } from 'react-redux';
+
+const configureStore = require('../store/configure');
+
+const store = configureStore();
 
 export function registerScreens() {
-  Navigation.registerComponent(
+  Navigation.registerComponentWithRedux(
     'teamboard.auth.Activation',
-    () => require('./auth/screens/Activation').default
+    () => require('./auth/screens/Activation').default,
+    Provider,
+    store
   );
 
-  Navigation.registerComponent(
+  Navigation.registerComponentWithRedux(
     'teamboard.auth.Profile',
-    () => require('./auth/screens/Profile').default
+    () => require('./auth/screens/Profile').default,
+    Provider,
+    store
   );
 }

@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet, KeyboardAvoidingView, View, Platform } from 'react-native';
-import { Button, TextInput, ControlBox, Presentational } from 'components';
+import { Button, ControlBox, Presentational, TextInput } from 'components';
+import { invitations } from 'teamboard-store';
+import { connect } from 'react-redux';
 
-class Activation extends Component {
+class Activation extends Component<any, any> {
   state = { value: '', loading: false };
 
   handleSubmit = async () => {
-    // this.setState({ loading: true });
-    // await invitations.checkCode({ code: this.state.value });
-    // this.setState({ loading: false });
+    try {
+      this.setState({ loading: true });
+      await this.props.dispatch(
+        invitations.checkCode({ code: this.state.value })
+      );
+      this.setState({ loading: false });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   render() {
@@ -32,7 +40,9 @@ class Activation extends Component {
                   onChangeText={(value: string) => {
                     this.setState({ value });
                   }}
-                  placeholder="Enter the code"
+                  placeholder="######"
+                  maxLength={6}
+                  keyboardType="number-pad"
                 />
               </ControlBox.InputWrapper>
             </ControlBox.Inputs>
@@ -57,4 +67,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Activation;
+export default connect()(Activation);
