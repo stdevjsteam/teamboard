@@ -80,3 +80,21 @@ export const deleteNews = (id: Id): ApiAction => ({
   },
   meta: { id }
 });
+
+type UploadPhotoBody = {
+  file: string;
+  purpose: string;
+};
+
+export const uploadPhoto = (body: UploadPhotoBody): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.UPLOAD_NEWS_PHOTO_REQUEST,
+      constants.UPLOAD_NEWS_PHOTO_SUCCESS,
+      constants.UPLOAD_NEWS_PHOTO_FAILURE
+    ],
+    endpoint: `/files`,
+    method: "POST",
+    body
+  }
+});
