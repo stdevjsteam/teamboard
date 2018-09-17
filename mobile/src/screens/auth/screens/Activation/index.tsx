@@ -1,22 +1,34 @@
 import React, { Component } from 'react';
 import { StyleSheet, KeyboardAvoidingView, View, Platform } from 'react-native';
 import { Button, ControlBox, Presentational, TextInput } from 'components';
-import { invitations } from 'teamboard-store';
+import { invitations, common } from 'teamboard-store';
 import { connect } from 'react-redux';
+import { Navigation } from 'react-native-navigation';
 
-class Activation extends Component<any, any> {
+type Props = {
+  dispatch: common.Dispatch;
+  componentId: string;
+};
+
+class Activation extends Component<Props> {
   state = { value: '', loading: false };
 
   handleSubmit = async () => {
-    try {
-      this.setState({ loading: true });
-      await this.props.dispatch(
-        invitations.checkCode({ code: this.state.value })
-      );
-      this.setState({ loading: false });
-    } catch (e) {
-      console.log(e);
-    }
+    const { dispatch } = this.props;
+
+    this.setState({ loading: true });
+
+    await dispatch(invitations.checkCode({ code: this.state.value }));
+
+    this.setState({ loading: false });
+
+    Navigation.setRoot({
+      root: {
+        component: {
+          name: 'teamboard.auth.Profile'
+        }
+      }
+    });
   };
 
   render() {

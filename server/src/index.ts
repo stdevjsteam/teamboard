@@ -26,6 +26,8 @@ const app = new Koa();
 
 app.subdomainOffset = 1;
 
+const unauthorized = /^\/(auth|invitations(?!\/send-code))/;
+
 // third-party middleware
 app.use(bodyParser());
 app.use(cors());
@@ -35,15 +37,15 @@ app.use(mount('/static', serve('static')));
 app.use(transformer());
 app.use(errorHandler());
 app.use(extendContext());
-app.use(authorization().unless({ path: /^\/auth/ }));
-app.use(checkUserStatus().unless({ path: /^\/auth/ }));
+app.use(authorization().unless({ path: unauthorized }));
+app.use(checkUserStatus().unless({ path: unauthorized }));
 
 // admin routes
 const subdomain = new Subdomain();
 const adminRouter = new Router();
 
 adminRouter.use(
-  isAdmin().unless({ path: /^\/auth/ }),
+  isAdmin().unless({ path: unauthorized }),
   admin.auth.routes(),
   admin.files.routes(),
   admin.invitations.routes(),
@@ -60,7 +62,7 @@ subdomain.use('admin', adminRouter.routes());
 const userRouter = new Router();
 
 userRouter.use(
-  isUser().unless({ path: /^\/auth/ }),
+  isUser().unless({ path: unauthorized }),
   user.auth.routes(),
   user.files.routes(),
   user.invitations.routes(),
