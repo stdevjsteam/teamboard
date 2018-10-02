@@ -25,14 +25,14 @@ const include = (ctx: IRouterContext) => {
   };
 };
 
-const paginate = (ctx: IRouterContext) => {
-  const { page = 1, limit = null } = ctx.query;
+// const paginate = (ctx: IRouterContext) => {
+//   const { page = 1, limit = null } = ctx.query;
 
-  return {
-    limit,
-    offset: (page - 1) * limit
-  };
-};
+//   return {
+//     limit,
+//     offset: (page - 1) * limit
+//   };
+// };
 
 class Crud {
   model: Model;
@@ -42,10 +42,10 @@ class Crud {
   }
 
   public async _findAll(ctx: IRouterContext, where: WhereOptions<any> = {}) {
-    ctx.body = await this.model.findAndCountAll({
+    ctx.body = await this.model.findAll({
       where,
-      ...include(ctx),
-      ...paginate(ctx)
+      ...include(ctx)
+      // ...paginate(ctx)
     });
   }
 

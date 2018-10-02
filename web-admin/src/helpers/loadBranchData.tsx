@@ -14,7 +14,6 @@ const loadBranchData = (pathname: string) => {
     .map(({ route, match }) => {
       const { component } = route;
       const { loadData } = component as any;
-
       return loadData ? loadData({ match, store }) : Promise.resolve(null);
     });
 

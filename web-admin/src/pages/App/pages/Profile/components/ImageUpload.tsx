@@ -6,7 +6,7 @@ import { UploadFile } from 'antd/lib/upload/interface';
 import 'cropperjs/dist/cropper.css';
 
 import { convertToBase64 } from 'helpers/base64';
-import { API_ROOT } from 'config';
+import { ADMIN_ROOT } from 'config';
 import { users, entities, common } from 'teamboard-store';
 
 type Props = {
@@ -48,13 +48,13 @@ class ImageUpload extends Component<Props, State> {
     if (user.image) {
       fileList.push({
         uid: Date.now(),
-        url: API_ROOT + '/' + user.image,
+        url: ADMIN_ROOT + '/' + user.image,
         name: '',
         type: '',
         size: 0
       });
     }
-
+    console.log('upload', fileList);
     return (
       <Fragment>
         <Upload
@@ -92,7 +92,7 @@ class ImageUpload extends Component<Props, State> {
           <img
             alt="example"
             style={{ width: '100%' }}
-            src={API_ROOT + '/' + user.image}
+            src={ADMIN_ROOT + '/' + user.image}
           />
         </Modal>
 
@@ -115,4 +115,4 @@ class ImageUpload extends Component<Props, State> {
   }
 }
 
-export default connect()(ImageUpload);
+export default connect()(ImageUpload as any);

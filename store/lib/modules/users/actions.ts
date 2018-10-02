@@ -1,9 +1,21 @@
-import * as constants from './constants';
-import { user } from '../../schema';
-import { ApiAction, CALL_API } from '../common';
-import { User } from '../entities';
+import * as constants from "./constants";
+import { user } from "../../schema";
+import { ApiAction, CALL_API } from "../common";
+import { User } from "../entities";
 
 type UpdateUserBody = Partial<User>;
+
+export const fetchUsers = (): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.FETCH_USER_REQUEST,
+      constants.FETCH_USER_SUCCESS,
+      constants.FETCH_USER_FAILURE
+    ],
+    endpoint: `/users`,
+    schema: [user]
+  }
+});
 
 export const updateUser = (body: UpdateUserBody): ApiAction => ({
   [CALL_API]: {
@@ -13,7 +25,7 @@ export const updateUser = (body: UpdateUserBody): ApiAction => ({
       constants.UPDATE_USER_FAILURE
     ],
     endpoint: `/users/edit-profile`,
-    method: 'POST',
+    method: "POST",
     body,
     schema: user
   }
@@ -32,7 +44,7 @@ export const uploadImage = (body: UploadImageBody): ApiAction => ({
       constants.UPLOAD_IMAGE_FAILURE
     ],
     endpoint: `/files`,
-    method: 'POST',
+    method: "POST",
     body,
     schema: user
   }

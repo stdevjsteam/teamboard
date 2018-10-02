@@ -1,6 +1,6 @@
-import { merge } from "lodash";
-import { common } from ".";
-import { AnyAction } from "redux";
+import { mergeWith } from 'lodash';
+import { common } from '.';
+import { AnyAction } from 'redux';
 
 type Entity<T> = {
   [key: number]: T;
@@ -12,13 +12,14 @@ export type User = {
   firstName: string;
   lastName: string;
   image: string;
+  position: string;
 };
 
 export type News = {
   id: common.Id;
   title: string;
   body: string;
-  photo: string;
+  image: string;
 };
 
 export type InterestingToKnow = {
@@ -30,7 +31,7 @@ export type InterestingToKnow = {
 export type Groups = {
   id: common.Id;
   name: string;
-  users: User[];
+  members: User[];
   push: any;
 };
 
@@ -48,10 +49,21 @@ const DEFAULT_STATE: State = {
   groups: {}
 };
 
+const customizer = (
+  objValue: any,
+  srcValue: any,
+  key: any,
+  object: any,
+  source: any,
+  stack: any
+) => {
+  return undefined;
+};
+
 // Updates an entity cache in response to any action with response.entities.
 export const reducer = (state = DEFAULT_STATE, action: AnyAction) => {
   if (action.response && action.response.entities) {
-    return merge({}, state, action.response.entities);
+    return mergeWith({}, state, action.response.entities, customizer);
   }
 
   return state;

@@ -2,10 +2,10 @@ import {
   FETCH_INTERESTINGTOKNOW_SUCCESS,
   DELETE_INTERESTINGTOKNOW_SUCCESS,
   FETCH_CURRENT_INTERESTINGTOKNOW_SUCCESS
-} from "./constants";
-import { State } from "./types";
-import { CLEAR_CURRENT_INTERESTINGTOKNOW } from "./constants";
-import { AnyAction } from "redux";
+} from './constants';
+import { State } from './types';
+import { CLEAR_CURRENT_INTERESTINGTOKNOW } from './constants';
+import { AnyAction } from 'redux';
 
 export const DEFAULT_STATE: State = {
   list: [],
@@ -22,7 +22,7 @@ const auth = (state = DEFAULT_STATE, action: AnyAction) => {
     case DELETE_INTERESTINGTOKNOW_SUCCESS:
       return {
         ...state,
-        list: state.list.filter(id => id !== +action.response.deletedIds[0])
+        list: state.list.filter(id => id !== action.requestAction.meta.id)
       };
     case FETCH_CURRENT_INTERESTINGTOKNOW_SUCCESS:
       return {

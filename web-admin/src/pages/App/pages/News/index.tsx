@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { List, Button, Modal, Row, Col } from "antd";
-import DocumentTitle from "react-document-title";
-import { connect } from "react-redux";
-import { news, entities, common } from "teamboard-store";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { List, Button, Modal, Row, Col } from 'antd';
+import DocumentTitle from 'react-document-title';
+import { connect } from 'react-redux';
+import { news, entities, common } from 'teamboard-store';
+import { Link } from 'react-router-dom';
 
 type Props = {
   news: entities.News[];
@@ -35,11 +35,11 @@ class News extends Component<Props> {
               <Link
                 to="/news/add"
                 style={{
-                  marginBottom: "30px",
-                  display: "block"
+                  marginBottom: '30px',
+                  display: 'block'
                 }}
               >
-                <Button type="primary" style={{ width: "100%" }}>
+                <Button type="primary" style={{ width: '100%' }}>
                   Add
                 </Button>
               </Link>

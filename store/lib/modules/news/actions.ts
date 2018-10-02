@@ -21,7 +21,7 @@ export const fetchCurrentNews = (id: Id): ApiAction => ({
       constants.FETCH_CURRENT_NEWS_SUCCESS,
       constants.FETCH_CURRENT_NEWS_FAILURE
     ],
-    endpoint: `/news/${id}`,
+    endpoint: `/news/${id}?associations=groups`,
     schema: news
   }
 });
@@ -32,7 +32,8 @@ export const clearCurrentNews = () => ({
 
 type CreateNewsBody = {
   title: string;
-  body: string;
+  description: string;
+  commentsOpen: boolean;
 };
 
 export const createNews = (body: CreateNewsBody): ApiAction => ({
@@ -51,7 +52,7 @@ export const createNews = (body: CreateNewsBody): ApiAction => ({
 
 type UpdateNewsBody = {
   title?: string;
-  body?: string;
+  description?: string;
 };
 
 export const updateNews = (id: Id, body: UpdateNewsBody): ApiAction => ({
@@ -62,7 +63,41 @@ export const updateNews = (id: Id, body: UpdateNewsBody): ApiAction => ({
       constants.UPDATE_NEWS_FAILURE
     ],
     endpoint: `/news/${id}`,
-    method: "PATCH",
+    method: 'PATCH',
+    schema: news,
+    body
+  }
+});
+
+type AddGroups = {
+  groupIds: number[];
+};
+
+export const addGroups = (id: Id, body: AddGroups): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.UPDATE_NEWS_REQUEST,
+      constants.UPDATE_NEWS_SUCCESS,
+      constants.UPDATE_NEWS_FAILURE
+    ],
+    endpoint: `/news/${id}/add-groups`,
+    method: 'POST',
+    schema: news,
+    body
+  }
+});
+type deleteGroups = {
+  groupIds: number[];
+};
+export const deleteGroups = (id: Id, body: deleteGroups): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.DELETE_GROUPS_REQUEST,
+      constants.DELETE_GROUPS_SUCCESS,
+      constants.DELETE_GROUPS_FAILURE
+    ],
+    endpoint: `/news/${id}/delete-groups`,
+    method: 'POST',
     schema: news,
     body
   }
@@ -83,10 +118,11 @@ export const deleteNews = (id: Id): ApiAction => ({
 
 type UploadPhotoBody = {
   file: string;
+  newsId: number;
   purpose: string;
 };
 
-export const uploadPhoto = (body: UploadPhotoBody): ApiAction => ({
+export const uploadImage = (body: UploadPhotoBody): ApiAction => ({
   [CALL_API]: {
     types: [
       constants.UPLOAD_NEWS_PHOTO_REQUEST,
@@ -94,7 +130,8 @@ export const uploadPhoto = (body: UploadPhotoBody): ApiAction => ({
       constants.UPLOAD_NEWS_PHOTO_FAILURE
     ],
     endpoint: `/files`,
-    method: "POST",
-    body
+    method: 'POST',
+    body,
+    schema: news
   }
 });

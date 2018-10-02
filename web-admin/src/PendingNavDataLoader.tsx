@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Route, RouteComponentProps, withRouter } from 'react-router-dom';
-import { Spin } from 'antd';
-import { Location } from 'history';
-import loadBranchData from 'helpers/loadBranchData';
-import NProgress from 'nprogress';
-import './nprogress.css';
+import React, { Component } from "react";
+import { Route, RouteComponentProps, withRouter } from "react-router-dom";
+import { Spin } from "antd";
+import { Location } from "history";
+import loadBranchData from "helpers/loadBranchData";
+import NProgress from "nprogress";
+import "./nprogress.css";
 
 NProgress.configure({ showSpinner: false });
 
@@ -56,10 +56,10 @@ class PendingNavDataLoader extends Component<Props, State> {
     return initialRender ? (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%'
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%"
         }}
       >
         <Spin size="large" />

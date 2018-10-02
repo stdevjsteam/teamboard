@@ -4,7 +4,7 @@ import * as unless from 'koa-unless';
 const permission = (role: string) => () => {
   const middleware: any = async (ctx: Context, next: Next) => {
     const userRole = ctx.state.user.get('role');
-
+    console.log(userRole);
     if (userRole !== role) {
       ctx.throw(400, 'You have no permission to perform this action');
     }

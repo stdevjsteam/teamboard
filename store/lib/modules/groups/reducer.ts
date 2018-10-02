@@ -1,11 +1,14 @@
 import {
-  FETCH_GROUPS_SUCCESS
-  // DELETE_NEWS_SUCCESS,
-  // FETCH_CURRENT_NEWS_SUCCESS
-} from "./constants";
-import { State } from "./types";
+  FETCH_GROUPS_SUCCESS,
+  DELETE_GROUP_SUCCESS,
+  FETCH_GROUP_SUCCESS,
+  DELETE_MEMBERS_SUCCESS,
+  ADD_MEMBERS_SUCCESS
+  // ADD_MEMBERS_SUCCESS
+} from './constants';
+import { State } from './types';
 // import { CLEAR_CURRENT_NEWS } from "./constants";
-import { AnyAction } from "redux";
+import { AnyAction } from 'redux';
 
 export const DEFAULT_STATE: State = {
   list: [],
@@ -15,25 +18,33 @@ export const DEFAULT_STATE: State = {
 const auth = (state = DEFAULT_STATE, action: AnyAction) => {
   switch (action.type) {
     case FETCH_GROUPS_SUCCESS:
-      console.log("nasmdnasmdnas", action);
       return {
         ...state,
         list: action.response.result
       };
-    // case DELETE_NEWS_SUCCESS:
+    case DELETE_GROUP_SUCCESS:
+      return {
+        ...state,
+        list: state.list.filter(id => {
+          return id !== action.requestAction.meta.id;
+        })
+      };
+    case FETCH_GROUP_SUCCESS:
+      return {
+        ...state,
+        current: action.response.result
+      };
+    // case ADD_MEMBERS_SUCCESS:
+    //   console.log('addmembers:', action.payload);
     //   return {
     //     ...state,
-    //     list: state.list.filter(id => id !== +action.response.deletedIds[0])
+    //     list: action.response.result
     //   };
-    // case FETCH_CURRENT_NEWS_SUCCESS:
+    // case DELETE_MEMBERS_SUCCESS:
+    //   console.log('ddddd', action);
     //   return {
     //     ...state,
-    //     current: action.response.result
-    //   };
-    // case CLEAR_CURRENT_NEWS:
-    //   return {
-    //     ...state,
-    //     current: null
+    //     list: state.list
     //   };
     default:
       return state;

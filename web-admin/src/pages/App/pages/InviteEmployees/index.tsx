@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Row, Col, Input, Button, Form, Modal, message } from "antd";
-import DocumentTitle from "react-document-title";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { invitations, common } from "teamboard-store";
+import React, { Component } from 'react';
+import { Row, Col, Input, Button, Form, Modal, message } from 'antd';
+import DocumentTitle from 'react-document-title';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { invitations, common } from 'teamboard-store';
 
 type Props = {
   dispatch: common.Dispatch;
@@ -12,7 +12,7 @@ type Props = {
 
 class InviteEmployees extends Component<Props> {
   state = {
-    email: "",
+    email: '',
     isLoading: false,
     loading: false,
     visible: true
@@ -29,7 +29,7 @@ class InviteEmployees extends Component<Props> {
     this.setState({ isLoading: false, visible: false });
 
     if (action.response) {
-      this.setState({ email: "" });
+      this.setState({ email: '' });
       message.success(action.response.message);
     }
   };
@@ -52,9 +52,9 @@ class InviteEmployees extends Component<Props> {
           visible={visible}
           title="Invite Employees"
           onOk={this.handleOk}
-          bodyStyle={{ height: "100px" }}
+          bodyStyle={{ height: '100px' }}
           onCancel={this.handleCancel}
-          footer={""}
+          footer={''}
         >
           <Row>
             <Col span={17}>
@@ -73,9 +73,8 @@ class InviteEmployees extends Component<Props> {
                 key="submit"
                 type="primary"
                 loading={loading}
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 onClick={this.onInvite}
-                // onClick={this.handleOk}
               >
                 Invite
               </Button>

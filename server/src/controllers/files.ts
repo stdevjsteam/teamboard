@@ -8,22 +8,26 @@ class Files {
     const { user } = ctx.state;
     const id = user.get('id');
 
-    const path = await upload({
-      oldPath: user.get('image'),
-      newPath: `static/images/users/${id}-${Date.now()}`,
-      file
-    });
+    try {
+      const path = await upload({
+        oldPath: user.get('image'),
+        newPath: `static/images/users/${id}-${Date.now()}`,
+        file
+      });
 
-    await User.update({ image: path }, { where: { id }, returning: true });
+      await User.update({ image: path }, { where: { id }, returning: true });
 
-    ctx.body = await User.findById(id);
+      ctx.body = await User.findById(id);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   newsImage = async (ctx: IRouterContext) => {
     const { News } = ctx.models;
     const { file, newsId } = ctx.request.body;
     const news = await News.findById(newsId);
-
+    console.log(newsId, news);
     ctx.assert(news, 400);
 
     const path = await upload({

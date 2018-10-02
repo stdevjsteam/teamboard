@@ -1,16 +1,17 @@
-import { Dispatch as ReduxDispatch } from "redux";
-import { Schema } from "normalizr";
+import { Dispatch as ReduxDispatch } from 'redux';
+import { Schema } from 'normalizr';
 import {
   auth,
   entities,
   errorMessage,
+  users,
   news,
   interestingToKnow,
   groups
-} from ".";
+} from '.';
 
 // Action key that carries API call info interpreted by this Redux middleware.
-export const CALL_API = "CALL_API";
+export const CALL_API = 'CALL_API';
 
 export type Id = number;
 
@@ -30,6 +31,7 @@ export type StoreState = {
   entities: entities.State;
   errorMessage: errorMessage.State;
   news: news.State;
+  users: users.State;
   groups: groups.State;
   interestingToKnow: interestingToKnow.State;
 };

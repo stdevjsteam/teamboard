@@ -10,7 +10,6 @@ const authorization = () => {
       const { User } = ctx.models;
 
       const payload = await auth.verifyAccessToken(accessToken);
-
       ctx.state.user = await User.unscoped().findById(payload.user.id);
     } catch (e) {
       ctx.throw(401, e.message);

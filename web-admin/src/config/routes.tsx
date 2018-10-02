@@ -1,19 +1,21 @@
-import React, { ComponentType } from "react";
-import { Redirect } from "react-router-dom";
-import { isAuthenticated } from "helpers/auth";
-import hoistNonReactStatics from "hoist-non-react-statics";
+import React, { ComponentType } from 'react';
+import { Redirect } from 'react-router-dom';
+import { isAuthenticated } from 'helpers/auth';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 
-import Events from "pages/App/pages/Events";
-import SignIn from "pages/SignIn";
-import App from "pages/App";
-import Profile from "pages/App/pages/Profile";
-import News from "pages/App/pages/News";
-import SingleNews from "pages/App/pages/News/pages/Single";
-import InterestingToKnow from "pages/App/pages/InterestingToKnow";
-import SingleInterestingToKnow from "pages/App/pages/InterestingToKnow/pages/Single";
-import InviteEmployees from "pages/App/pages/InviteEmployees";
-// import Group from "antd/lib/input/Group";
-import Groups from "pages/App/pages/Groups";
+import Events from 'pages/App/pages/Events';
+import SignIn from 'pages/SignIn';
+import App from 'pages/App';
+import Profile from 'pages/App/pages/Profile';
+import News from 'pages/App/pages/News';
+import SingleNews from 'pages/App/pages/News/pages/Single';
+import InterestingToKnow from 'pages/App/pages/InterestingToKnow';
+import SingleInterestingToKnow from 'pages/App/pages/InterestingToKnow/pages/Single';
+import InviteEmployees from 'pages/App/pages/InviteEmployees';
+import SingleGroup from './../pages/App/pages/Groups/pages/Single/components/Single';
+import Groups from 'pages/App/pages/Groups';
+import Users from 'pages/App/pages/Users';
+import ManageRoles from 'pages/App/pages/Users/pages/ManageRoles';
 
 // import Modal1 from "pages/App/pages/InviteEmployees/Modal";
 
@@ -35,50 +37,72 @@ export const Protected = (C: ComponentType<any>) => {
 
 const routes: any = [
   {
-    path: "/",
+    path: '/',
     ...Conditional(App, SignIn as ComponentType<any>),
     routes: [
       {
-        path: "/",
+        path: '/',
         exact: true,
         ...Protected(News)
       },
       {
-        path: "/news/add",
+        path: '/news/add',
         ...Protected(SingleNews)
       },
       {
-        path: "/news/:id/edit",
+        path: '/news/:id/edit',
         ...Protected(SingleNews)
       },
       {
-        path: "/interesting_to_know",
+        path: '/interesting-to-knows',
         exact: true,
         ...Protected(InterestingToKnow)
       },
       {
-        path: "/interesting_to_know/add",
+        path: '/interesting-to-knows/add',
         ...Protected(SingleInterestingToKnow)
       },
       {
-        path: "/interesting_to_know/:id/edit",
+        path: '/interesting-to-knows/:id/edit',
         ...Protected(SingleInterestingToKnow)
       },
       {
-        path: "/events",
+        path: '/events',
         ...Protected(Events)
       },
       {
-        path: "/profile",
+        path: '/profile',
         ...Protected(Profile as ComponentType<any>)
       },
       {
-        path: "/invite-employees",
+        path: '/invite-employees',
         ...Protected(InviteEmployees as ComponentType<any>)
       },
       {
-        path: "/groups",
+        path: '/groups',
+        exact: true,
         ...Protected(Groups as ComponentType<any>)
+      },
+
+      {
+        path: '/groups/add',
+        exact: true,
+        ...Protected(SingleGroup as ComponentType<any>)
+      },
+      {
+        path: '/groups/add/:id',
+        exact: true,
+        ...Protected(SingleGroup as ComponentType<any>)
+      },
+      {
+        path: '/users',
+        exact: true,
+        ...Protected(Users as ComponentType<any>)
+      },
+      {
+        path: '/users/manage-roles',
+        exact: true,
+        ...Protected(ManageRoles as ComponentType<any>)
       },
       {
         component: () => {

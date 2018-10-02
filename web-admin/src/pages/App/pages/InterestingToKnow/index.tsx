@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import { List, Button, Modal, Row, Col } from "antd";
-import DocumentTitle from "react-document-title";
-import { connect } from "react-redux";
-import { interestingToKnow, entities, common } from "teamboard-store";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { List, Button, Modal, Row, Col } from 'antd';
+import DocumentTitle from 'react-document-title';
+import { connect } from 'react-redux';
+import { interestingToKnow, entities, common } from 'teamboard-store';
+import { Link } from 'react-router-dom';
 
 type Props = {
   interestingToKnow: entities.InterestingToKnow[];
   dispatch: common.Dispatch;
 };
 
-class InterestingToKnow extends Component<Props> {
+class InterestingToKnows extends Component<Props> {
   static loadData = ({ store }) => {
     return store.dispatch(interestingToKnow.fetchInterestingToKnow());
   };
 
-  showConfirm = ({ title, id }: entities.InterestingToKnow) => {
+  showConfirm = ({ title, id }: entities.News) => {
     const { dispatch } = this.props;
 
     Modal.confirm({
@@ -28,18 +28,18 @@ class InterestingToKnow extends Component<Props> {
 
   render() {
     return (
-      <DocumentTitle title="interestingToKnow">
+      <DocumentTitle title="InterestingToKnow">
         <div>
           <Row type="flex" justify="end">
             <Col xs={24} md={2}>
               <Link
-                to="/interestingToKnow/add"
+                to="/interesting-to-knows/add"
                 style={{
-                  marginBottom: "30px",
-                  display: "block"
+                  marginBottom: '30px',
+                  display: 'block'
                 }}
               >
-                <Button type="primary" style={{ width: "100%" }}>
+                <Button type="primary" style={{ width: '100%' }}>
                   Add
                 </Button>
               </Link>
@@ -54,7 +54,9 @@ class InterestingToKnow extends Component<Props> {
             renderItem={item => (
               <List.Item
                 actions={[
-                  <Link to={`/interestingToKnow/${item.id}/edit`}>edit</Link>,
+                  <Link to={`/interesting-to-knows/${item.id}/edit`}>
+                    edit
+                  </Link>,
                   <a
                     onClick={() => {
                       this.showConfirm(item);
@@ -80,4 +82,4 @@ export default connect((state: common.StoreState) => {
       id => state.entities.interestingToKnow[id]
     )
   };
-})(InterestingToKnow as any);
+})(InterestingToKnows as any);

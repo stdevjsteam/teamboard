@@ -1,4 +1,4 @@
-import { common } from '../../modules';
+import { common } from "../../modules";
 
 export type State = {
   list: common.Id[];

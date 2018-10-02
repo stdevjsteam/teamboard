@@ -1,7 +1,8 @@
-import * as constants from "./constants";
+import * as constants from './constants';
 
-import { groups } from "./../../schema";
-import { ApiAction, CALL_API, Id } from "../common";
+import { groups } from './../../schema';
+import { ApiAction, CALL_API, Id } from '../common';
+import { common } from '../..';
 
 export const fetchGroups = (): ApiAction => ({
   [CALL_API]: {
@@ -10,92 +11,109 @@ export const fetchGroups = (): ApiAction => ({
       constants.FETCH_GROUPS_SUCCESS,
       constants.FETCH_GROUPS_FAILURE
     ],
-    endpoint: `/groups.json`,
+    endpoint: `/groups?associations=members`,
     schema: [groups]
   }
 });
-// ${process.env.PUBLIC_URL}
 
-// export const fetchCurrentNews = (id: Id): ApiAction => ({
-//   [CALL_API]: {
-//     types: [
-//       constants.FETCH_CURRENT_NEWS_REQUEST,
-//       constants.FETCH_CURRENT_NEWS_SUCCESS,
-//       constants.FETCH_CURRENT_NEWS_FAILURE
-//     ],
-//     endpoint: `/news/${id}`,
-//     schema: news
-//   }
-// });
+export const fetchGroup = (id: Id): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.FETCH_GROUP_REQUEST,
+      constants.FETCH_GROUP_SUCCESS,
+      constants.FETCH_GROUP_FAILURE
+    ],
+    endpoint: `/groups/${id}?associations=members`,
+    schema: groups
+  }
+});
 
-// export const clearCurrentNews = () => ({
-//   type: constants.CLEAR_CURRENT_NEWS
-// });
+type CreateGroupBody = {
+  name: string;
+};
 
-// type CreateNewsBody = {
-//   title: string;
-//   body: string;
-// };
+export const createGroup = (body: CreateGroupBody): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.CREATE_GROUP_REQUEST,
+      constants.CREATE_GROUP_SUCCESS,
+      constants.CREATE_GROUP_FAILURE
+    ],
+    endpoint: `/groups`,
+    method: 'POST',
+    schema: groups,
+    body
+  }
+});
 
-// export const createNews = (body: CreateNewsBody): ApiAction => ({
-//   [CALL_API]: {
-//     types: [
-//       constants.CREATE_NEWS_REQUEST,
-//       constants.CREATE_NEWS_SUCCESS,
-//       constants.CREATE_NEWS_FAILURE
-//     ],
-//     endpoint: `/news`,
-//     method: "POST",
-//     schema: news,
-//     body
-//   }
-// });
+export type Member = {
+  id: common.Id;
+  role: 'member' | 'tl' | 'pm';
+};
 
-// type UpdateNewsBody = {
-//   title?: string;
-//   body?: string;
-// };
+type AddMembersBody = {
+  members: Member[];
+};
 
-// export const updateNews = (id: Id, body: UpdateNewsBody): ApiAction => ({
-//   [CALL_API]: {
-//     types: [
-//       constants.UPDATE_NEWS_REQUEST,
-//       constants.UPDATE_NEWS_SUCCESS,
-//       constants.UPDATE_NEWS_FAILURE
-//     ],
-//     endpoint: `/news/${id}`,
-//     method: "PATCH",
-//     schema: news,
-//     body
-//   }
-// });
+export const addMembers = (id: common.Id, body: AddMembersBody): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.ADD_MEMBERS_REQUEST,
+      constants.ADD_MEMBERS_SUCCESS,
+      constants.ADD_MEMBERS_FAILURE
+    ],
+    endpoint: `/groups/${id}/add-members`,
+    method: 'POST',
+    body
+  }
+});
 
-// export const deleteNews = (id: Id): ApiAction => ({
-//   [CALL_API]: {
-//     types: [
-//       constants.DELETE_NEWS_REQUEST,
-//       constants.DELETE_NEWS_SUCCESS,
-//       constants.DELETE_NEWS_FAILURE
-//     ],
-//     endpoint: `/news/${id}`,
-//     method: "DELETE"
-//   }
-// });
+type DeleteMembersBody = {
+  memberIds: common.Id[];
+};
 
-// type UploadPhotoBody = {
-//   file: string;
-//   purpose: string;
-// };
+export const deleteMembers = (
+  id: common.Id,
+  body: DeleteMembersBody
+): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.DELETE_MEMBERS_REQUEST,
+      constants.DELETE_MEMBERS_SUCCESS,
+      constants.DELETE_MEMBERS_FAILURE
+    ],
+    endpoint: `/groups/${id}/delete-members`,
+    method: 'POST',
+    body
+  }
+});
 
-// export const uploadPhoto = (body: UploadPhotoBody): ApiAction => ({
-//   [CALL_API]: {
-//     types: [
-//       constants.UPLOAD_NEWS_PHOTO_REQUEST,
-//       constants.UPLOAD_NEWS_PHOTO_SUCCESS,
-//       constants.UPLOAD_NEWS_PHOTO_FAILURE
-//     ],
-//     endpoint: `/files`,
-//     method: "POST",
-//     body
-//   }
-// });
+export const deleteGroup = (id: common.Id): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.DELETE_GROUP_REQUEST,
+      constants.DELETE_GROUP_SUCCESS,
+      constants.DELETE_GROUP_FAILURE
+    ],
+    endpoint: `/groups/${id}`,
+    method: 'DELETE'
+  },
+  meta: { id }
+});
+
+type UpdateGroupBody = {
+  name: string;
+};
+export const editGroup = (id: common.Id, body: UpdateGroupBody): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.EDIT_GROUP_REQUEST,
+      constants.EDIT_GROUP_SUCCESS,
+      constants.EDIT_GROUP_FAILURE
+    ],
+    endpoint: `/groups/${id}`,
+    method: 'PATCH',
+    body
+  },
+  meta: { id }
+});
