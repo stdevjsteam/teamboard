@@ -34,11 +34,19 @@ export type Groups = {
   members: User[];
   push: any;
 };
+export type Events = {
+  title: string;
+  time: Date;
+  image: string;
+  description: string;
+  location: string;
+};
 
 export type State = {
   users: Entity<User>;
   news: Entity<News>;
   interestingToKnow: Entity<InterestingToKnow>;
+  events: Entity<Events>;
   groups: Entity<Groups>;
 };
 
@@ -46,7 +54,8 @@ const DEFAULT_STATE: State = {
   users: {},
   news: {},
   interestingToKnow: {},
-  groups: {}
+  groups: {},
+  events: {}
 };
 
 const customizer = (

@@ -3,6 +3,7 @@ import * as errorMessage from './errorMessage';
 import * as entities from './entities';
 import * as users from './users';
 import * as news from './news';
+import * as events from './events';
 import * as groups from './groups';
 import * as common from './common';
 import * as invitations from './invitations';
@@ -15,6 +16,7 @@ export {
   users,
   news,
   groups,
+  events,
   common,
   invitations,
   interestingToKnow

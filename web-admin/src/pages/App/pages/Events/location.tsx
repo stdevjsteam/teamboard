@@ -1,14 +1,14 @@
-import React from "react";
-import { Input, Icon } from "antd";
+import React from 'react';
+import { Input, Icon } from 'antd';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
-} from "react-places-autocomplete";
+} from 'react-places-autocomplete';
 
 class Location extends React.Component<any, any> {
   constructor(props) {
     super(props);
-    this.state = { address: "" };
+    this.state = { address: '', mmm: '' };
   }
 
   handleChange = address => {
@@ -18,11 +18,12 @@ class Location extends React.Component<any, any> {
   handleSelect = address => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(latLng => console.log("Success", latLng))
-      .catch(error => console.error("Error", error));
+      .then(latLng => this.setState({ mmm: latLng }))
+      .catch(error => console.error('Error', error));
   };
 
   render() {
+    console.log('stateAdress', this.state.mmm);
     return (
       <PlacesAutocomplete
         value={this.state.address}
@@ -35,12 +36,12 @@ class Location extends React.Component<any, any> {
               prefix={
                 <Icon
                   type="environment-o"
-                  style={{ color: "rgba(0,0,0,.25)" }}
+                  style={{ color: 'rgba(0,0,0,.25)' }}
                 />
               }
               {...getInputProps({
-                placeholder: "Location",
-                className: "location-search-input"
+                placeholder: 'Location',
+                className: 'location-search-input'
               })}
             />
 
@@ -48,12 +49,12 @@ class Location extends React.Component<any, any> {
               {loading && <div>Loading...</div>}
               {suggestions.map(suggestion => {
                 const className = suggestion.active
-                  ? "suggestion-item--active"
-                  : "suggestion-item";
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
                 // inline style for demonstration purpose
                 const style = suggestion.active
-                  ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                  : { backgroundColor: "#ffffff", cursor: "pointer" };
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
                 return (
                   <div
                     {...getSuggestionItemProps(suggestion, {

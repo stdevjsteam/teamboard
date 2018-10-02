@@ -6,6 +6,7 @@ import {
   errorMessage,
   users,
   news,
+  events,
   interestingToKnow,
   groups
 } from '.';
@@ -32,6 +33,7 @@ export type StoreState = {
   errorMessage: errorMessage.State;
   news: news.State;
   users: users.State;
+  events: events.State;
   groups: groups.State;
   interestingToKnow: interestingToKnow.State;
 };

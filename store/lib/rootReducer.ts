@@ -6,6 +6,7 @@ import {
   news,
   users,
   groups,
+  events,
   interestingToKnow
 } from './modules';
 
@@ -15,6 +16,7 @@ export default combineReducers({
   entities: entities.reducer,
   news: news.reducer,
   users: users.reducer,
+  events: events.reducer,
   groups: groups.reducer,
   interestingToKnow: interestingToKnow.reducer
 });
