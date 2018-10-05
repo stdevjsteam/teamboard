@@ -35,6 +35,7 @@ export type Groups = {
   push: any;
 };
 export type Events = {
+  id: common.Id;
   title: string;
   time: Date;
   image: string;

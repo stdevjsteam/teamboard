@@ -1,7 +1,7 @@
 import * as constants from './constants';
 
 import { events } from './../../schema';
-import { ApiAction, CALL_API } from '../common';
+import { ApiAction, CALL_API, Id } from '../common';
 // import { common } from '../..';
 
 export const fetchEvents = (): ApiAction => ({
@@ -16,23 +16,27 @@ export const fetchEvents = (): ApiAction => ({
   }
 });
 
-// export const fetchGroup = (id: Id): ApiAction => ({
-//   [CALL_API]: {
-//     types: [
-//       constants.FETCH_GROUP_REQUEST,
-//       constants.FETCH_GROUP_SUCCESS,
-//       constants.FETCH_GROUP_FAILURE
-//     ],
-//     endpoint: `/groups/${id}?associations=members`,
-//     schema: groups
-//   }
-// });
+export const fetchEvent = (id: Id): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.FETCH_EVENT_REQUEST,
+      constants.FETCH_EVENT_SUCCESS,
+      constants.FETCH_EVENT_FAILURE
+    ],
+    endpoint: `/events/${id}`,
+    schema: events
+  }
+});
 
 type CreateGroupBody = {
-  name: string;
+  title: string;
+  description: string;
+  time: string;
+  location: string;
+  image: string;
 };
 
-export const createGroup = (body: CreateGroupBody): ApiAction => ({
+export const createEvents = (body: CreateGroupBody): ApiAction => ({
   [CALL_API]: {
     types: [
       constants.CREATE_EVENTS_REQUEST,

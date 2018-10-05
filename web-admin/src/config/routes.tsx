@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { isAuthenticated } from 'helpers/auth';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
+import SingleEvents from 'pages/App/pages/Events/pages/single';
 import Events from 'pages/App/pages/Events';
 import SignIn from 'pages/SignIn';
 import App from 'pages/App';
@@ -68,7 +69,16 @@ const routes: any = [
       },
       {
         path: '/events',
+        exact: true,
         ...Protected(Events)
+      },
+      {
+        path: '/events/add',
+        ...Protected(SingleEvents)
+      },
+      {
+        path: '/events/:id/edit',
+        ...Protected(SingleEvents)
       },
       {
         path: '/profile',

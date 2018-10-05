@@ -148,6 +148,15 @@ class NewsItem extends React.Component<Props, State> {
         })
       );
     }
+    if (!this.state.imageBase64 && this.props.currentNews.image) {
+      await this.props.dispatch(
+        news.uploadImage({
+          file: this.state.imageBase64,
+          newsId: (response as any).response.result,
+          purpose: 'news_image'
+        })
+      );
+    }
     if (response) {
       message.success(`"${title}" is successfully updated`);
       history.push('/');

@@ -64,7 +64,7 @@ class ImageUpload extends Component<Props, State> {
       type: '',
       size: 0
     });
-    console.log('base64', this.state.Base64);
+
     return (
       <Fragment>
         <Upload
@@ -77,7 +77,6 @@ class ImageUpload extends Component<Props, State> {
             })
           }
           onRemove={() => {
-            this.props.handleUpload('');
             this.setState({
               Base64: null
             });
@@ -115,10 +114,7 @@ class ImageUpload extends Component<Props, State> {
           <Cropper
             ref={this.cropper as any}
             src={cropImage as any}
-            style={{
-              height: 400,
-              width: '100%'
-            }}
+            style={{ height: 400, width: '100%' }}
             aspectRatio={1}
             guides={false}
           />

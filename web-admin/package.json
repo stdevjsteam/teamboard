@@ -12,6 +12,7 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "megadraft": "^0.5.0",
+    "moment": "^2.22.2",
     "normalizr": "^3.2.4",
     "nprogress": "^0.2.0",
     "odiff": "^1.2.0",

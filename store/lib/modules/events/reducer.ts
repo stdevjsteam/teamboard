@@ -1,7 +1,7 @@
 import {
-  FETCH_EVENTS_SUCCESS
+  FETCH_EVENTS_SUCCESS,
   // DELETE_GROUP_SUCCESS,
-  // FETCH_GROUP_SUCCESS,
+  FETCH_EVENT_SUCCESS
   // DELETE_MEMBERS_SUCCESS,
   // ADD_MEMBERS_SUCCESS
   // ADD_MEMBERS_SUCCESS
@@ -30,11 +30,11 @@ const auth = (state = DEFAULT_STATE, action: AnyAction) => {
     //       return id !== action.requestAction.meta.id;
     //     })
     //   };
-    // case FETCH_GROUP_SUCCESS:
-    //   return {
-    //     ...state,
-    //     current: action.response.result
-    //   };
+    case FETCH_EVENT_SUCCESS:
+      return {
+        ...state,
+        current: action.response.result
+      };
     // case ADD_MEMBERS_SUCCESS:
     //   console.log('addmembers:', action.payload);
     //   return {

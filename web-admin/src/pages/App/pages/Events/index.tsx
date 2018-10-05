@@ -1,168 +1,105 @@
 import React, { Component } from 'react';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import {
-  Form,
-  Icon,
-  Input,
-  Button,
-  Row,
-  Col,
-  DatePicker,
-  TimePicker,
-  Upload,
-  message
-} from 'antd';
-
-import messages from 'helpers/messages';
-import Location from './location';
-
-import { events, common } from 'teamboard-store';
-
+import { Table, Button, Modal } from 'antd';
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import { events, entities, common } from 'teamboard-store';
+import { Link } from 'react-router-dom';
 
-const FormItem = Form.Item;
-const Dragger = Upload.Dragger;
-const uploadProps = {
-  name: 'file',
-  multiple: true,
-  action: '//jsonplaceholder.typicode.com/posts/',
-  onChange(info) {
-    const status = info.file.status;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  }
+type Props = {
+  events: entities.Events[];
+  dispatch: common.Dispatch;
 };
-class NormalLoginForm extends Component<any, any> {
-  constructor(props) {
-    super(props);
-    this.state = { address: '', name: '', description: '', date: '' };
-  }
+
+class Events extends Component<Props> {
   static loadData = ({ store }) => {
     return store.dispatch(events.fetchEvents());
   };
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-        this.setState({ name: values.name, description: values.description });
-      }
+  showConfirm = ({ name, id }: entities.Groups) => {
+    // const { dispatch } = this.props;
+
+    Modal.confirm({
+      title: `Do you want to delete "${name}" ?`
+      //   onOk() {
+      //     dispatch(groups.deleteGroup(id));
+      //   }
     });
   };
-  onChange = (value, dateString) => {
-    console.log('Selected Time: ', value);
-    console.log('Formatted Selected Time: ', dateString);
-    this.setState({ date: `${value.toDate()}` });
-  };
-
-  onOk = value => {
-    console.log('onOk: ', value);
-  };
-  onChange1 = async address => {
-    await this.setState({ address });
-    geocodeByAddress(this.state.address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => this.setState({ address: latLng }))
-      .catch(error => console.error('Error', error));
-  };
-  handleFormSubmit = event => {
-    event.preventDefault();
-  };
-
   render() {
-    console.log('dddddddddddddd', this.state);
-    const { getFieldDecorator } = this.props.form;
-    return (
-      <Row gutter={16} justify="center" align="top">
-        <Col span={7} />
-        <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-          <Form onSubmit={this.handleSubmit}>
-            <FormItem>
-              {getFieldDecorator('name', {
-                rules: [{ required: true, message: messages.required }]
-              })(
-                <Input
-                  prefix={
-                    <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
-                  }
-                  placeholder="Event Name"
-                />
-              )}
-            </FormItem>
+    const columns = [
+      {
+        title: 'ID',
+        dataIndex: 'ID',
+        key: 'id',
+        render: text => <a href="javascript:;">{text}</a>
+      },
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name'
+      },
+      {
+        title: 'Date',
+        dataIndex: 'date',
+        key: 'date'
+      },
 
-            <FormItem>
-              <Location />
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator('description', {
-                rules: [{ required: true, message: messages.required }]
-              })(
-                <Input
-                  prefix={
-                    <Icon
-                      type="exception"
-                      style={{ color: 'rgba(0,0,0,.25)' }}
-                    />
-                  }
-                  placeholder="Description"
-                />
-              )}
-            </FormItem>
-            <FormItem>
-              <div>
-                <DatePicker
-                  showToday={true}
-                  onOk={this.onOk}
-                  onChange={this.onChange}
-                  format="YYYY-MM-DD "
-                />{' '}
-                - <TimePicker onChange={this.onChange} format=" HH:mm:ss" />
-              </div>
-            </FormItem>
-            <Dragger {...uploadProps}>
-              <p className="ant-upload-drag-icon">
-                <Icon type="inbox" />
-              </p>
-              <p className="ant-upload-text">
-                Click or drag file to this area to upload
-              </p>
-            </Dragger>
-            <FormItem>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                onClick={() => {
-                  console.log('auuuuuuuuuuuu', this.state);
-                }}
-              >
-                Create
-              </Button>
-            </FormItem>
-          </Form>
-        </Col>
-      </Row>
+      {
+        title: 'Action',
+        key: 'action',
+        render: (text, record) => (
+          <span>
+            <Link to={`/events/${record.key}/edit`}>Edit </Link>
+            <span>|</span>
+            <a
+              href="javascript:;"
+              onClick={() => {
+                this.showConfirm(record);
+              }}
+            >
+              {' '}
+              Delete
+            </a>
+          </span>
+        )
+      }
+    ];
+    const data = this.props.events.map((elem, i) => {
+      console.log('aaaaaaaaaaaaaaaaaa', elem);
+      return {
+        ID: i + 1,
+        id: elem.id,
+        key: elem.id,
+        name: elem.title,
+        date: moment(elem.time).format('YYYY-MM-DD HH:mm:ss')
+      };
+    });
+    // : {
+    //     key: number;
+    //     title: string;
+    //     description: string;
+    //   }[]
+    console.log('sssssssssssss', this.props.events);
+    return (
+      <DocumentTitle title="Events">
+        <div>
+          {' '}
+          <Link to="/events/add">
+            <Button type="primary">Add Group</Button>
+          </Link>
+          <Table
+            columns={columns}
+            dataSource={data}
+            pagination={{ pageSize: 7 }}
+          />
+        </div>
+      </DocumentTitle>
     );
   }
 }
-const Events = Form.create()(NormalLoginForm);
+
 export default connect((state: common.StoreState) => {
   return {
-    // currentGroup: state.entities.groups[state.groups.current!],
     events: state.events.list.map(id => state.entities.events[id])
   };
 })(Events as any);
-
-// const SingleGroup = Form.create()(Single);
-// export default connect((state: common.StoreState) => {
-//   return {
-//     currentGroup: state.entities.groups[state.groups.current!],
-//     users: state.users.list.map(id => state.entities.users[id])
-//   };
-// })(SingleGroup as any);

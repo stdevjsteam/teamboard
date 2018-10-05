@@ -8,22 +8,28 @@ import PlacesAutocomplete, {
 class Location extends React.Component<any, any> {
   constructor(props) {
     super(props);
-    this.state = { address: '', mmm: '' };
+    this.state = { address: '', latLng: '' };
   }
 
   handleChange = address => {
     this.setState({ address });
   };
 
-  handleSelect = address => {
-    geocodeByAddress(address)
+  handleSelect = async address => {
+    await this.setState({ address });
+    await geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(latLng => this.setState({ mmm: latLng }))
+      .then(latLng => this.setState({ latLng }))
       .catch(error => console.error('Error', error));
+    this.props.getAddress(this.state);
   };
-
+  componentDidMount() {
+    if (this.props.address) {
+      this.setState({ address: this.props.address });
+    }
+  }
   render() {
-    console.log('stateAdress', this.state.mmm);
+    console.log('stateAdress', this.props.address);
     return (
       <PlacesAutocomplete
         value={this.state.address}
@@ -44,7 +50,6 @@ class Location extends React.Component<any, any> {
                 className: 'location-search-input'
               })}
             />
-
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
               {suggestions.map(suggestion => {
