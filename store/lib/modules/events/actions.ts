@@ -2,7 +2,7 @@ import * as constants from './constants';
 
 import { events } from './../../schema';
 import { ApiAction, CALL_API, Id } from '../common';
-// import { common } from '../..';
+import { common } from '../..';
 
 export const fetchEvents = (): ApiAction => ({
   [CALL_API]: {
@@ -33,7 +33,6 @@ type CreateGroupBody = {
   description: string;
   time: string;
   location: string;
-  image: string;
 };
 
 export const createEvents = (body: CreateGroupBody): ApiAction => ({
@@ -49,6 +48,59 @@ export const createEvents = (body: CreateGroupBody): ApiAction => ({
     body
   }
 });
+
+type DeleteMembersBody = {
+  memberIds: common.Id[];
+};
+
+export const deleteEvent = (id: common.Id): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.DELETE_EVENT_REQSUET,
+      constants.DELETE_EVENT_SUCCESS,
+      constants.DELETE_EVENT_FAILURE
+    ],
+    endpoint: `/events/${id}`,
+    method: 'DELETE'
+  },
+  meta: { id }
+});
+
+type UpdateEventBody = {
+  title: string;
+  description: string;
+  time: string;
+  location: string;
+};
+export const editEvent = (id: common.Id, body: UpdateEventBody): ApiAction => ({
+  [CALL_API]: {
+    types: [
+      constants.EDIT_EVENT_REQUEST,
+      constants.EDIT_EVENT_SUCCESS,
+      constants.EDIT_EVENT_FAILURE
+    ],
+    endpoint: `/events/${id}`,
+    method: 'PATCH',
+    body
+  },
+  meta: { id }
+});
+
+// export const deleteMembers = (
+//   id: common.Id,
+//   body: DeleteMembersBody
+// ): ApiAction => ({
+//   [CALL_API]: {
+//     types: [
+//       constants.DELETE_MEMBERS_REQUEST,
+//       constants.DELETE_MEMBERS_SUCCESS,
+//       constants.DELETE_MEMBERS_FAILURE
+//     ],
+//     endpoint: `/groups/${id}/delete-members`,
+//     method: 'POST',
+//     body
+//   }
+// });
 
 // export type Member = {
 //   id: common.Id;
@@ -70,39 +122,6 @@ export const createEvents = (body: CreateGroupBody): ApiAction => ({
 //     method: 'POST',
 //     body
 //   }
-// });
-
-// type DeleteMembersBody = {
-//   memberIds: common.Id[];
-// };
-
-// export const deleteMembers = (
-//   id: common.Id,
-//   body: DeleteMembersBody
-// ): ApiAction => ({
-//   [CALL_API]: {
-//     types: [
-//       constants.DELETE_MEMBERS_REQUEST,
-//       constants.DELETE_MEMBERS_SUCCESS,
-//       constants.DELETE_MEMBERS_FAILURE
-//     ],
-//     endpoint: `/groups/${id}/delete-members`,
-//     method: 'POST',
-//     body
-//   }
-// });
-
-// export const deleteGroup = (id: common.Id): ApiAction => ({
-//   [CALL_API]: {
-//     types: [
-//       constants.DELETE_GROUP_REQUEST,
-//       constants.DELETE_GROUP_SUCCESS,
-//       constants.DELETE_GROUP_FAILURE
-//     ],
-//     endpoint: `/groups/${id}`,
-//     method: 'DELETE'
-//   },
-//   meta: { id }
 // });
 
 // type UpdateGroupBody = {

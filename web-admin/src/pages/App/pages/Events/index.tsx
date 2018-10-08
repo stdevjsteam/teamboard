@@ -16,13 +16,13 @@ class Events extends Component<Props> {
     return store.dispatch(events.fetchEvents());
   };
   showConfirm = ({ name, id }: entities.Groups) => {
-    // const { dispatch } = this.props;
+    const { dispatch } = this.props;
 
     Modal.confirm({
-      title: `Do you want to delete "${name}" ?`
-      //   onOk() {
-      //     dispatch(groups.deleteGroup(id));
-      //   }
+      title: `Do you want to delete "${name}" ?`,
+      onOk() {
+        dispatch(events.deleteEvent(id));
+      }
     });
   };
   render() {

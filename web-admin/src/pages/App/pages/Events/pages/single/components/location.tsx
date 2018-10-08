@@ -24,12 +24,12 @@ class Location extends React.Component<any, any> {
     this.props.getAddress(this.state);
   };
   componentDidMount() {
-    if (this.props.address) {
+    if (this.props.id && this.props.address) {
       this.setState({ address: this.props.address });
     }
   }
   render() {
-    console.log('stateAdress', this.props.address);
+    console.log('stateAdress', this.props);
     return (
       <PlacesAutocomplete
         value={this.state.address}
