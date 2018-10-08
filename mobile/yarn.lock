@@ -580,7 +580,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native@*", "@types/react-native@^0.56.15":
+"@types/react-native@^0.56.15":
   version "0.56.15"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.56.15.tgz#b1b2693153859f3a3d49533a3539ca83edd45b91"
   dependencies:
@@ -3760,10 +3760,6 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-moment@2.19.3:
-  version "2.19.3"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.3.tgz#bdb99d270d6d7fda78cc0fbace855e27fe7da69f"
-
 morgan@^1.9.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.9.0.tgz#d01fa6c65859b76fcf31b3cb53a3821a311d8051"
@@ -4313,15 +4309,6 @@ react-native-keyboard-aware-scroll-view@^0.7.2:
   dependencies:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
-
-react-native-masked-text@^1.7.2:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/react-native-masked-text/-/react-native-masked-text-1.7.2.tgz#82dadbd19c856354a99bbac6e218b5e6a4365157"
-  dependencies:
-    "@types/react" "*"
-    "@types/react-native" "*"
-    moment "2.19.3"
-    tinymask "^1.0.2"
 
 react-native-navigation@^2.0.2515:
   version "2.0.2515"
@@ -5168,10 +5155,6 @@ through@^2.3.6:
 time-stamp@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-1.1.0.tgz#764a5a11af50561921b133f3b44e618687e0f5c3"
-
-tinymask@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/tinymask/-/tinymask-1.0.2.tgz#df3775a94087b0d3d056c256e8923c01b7ec0941"
 
 tmp@^0.0.33:
   version "0.0.33"

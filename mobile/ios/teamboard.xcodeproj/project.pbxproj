@@ -22,9 +22,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		181AF733216B9E0700C6E716 /* RussoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181AF731216B9E0600C6E716 /* RussoOne-Regular.ttf */; };
+		181AF734216B9E0700C6E716 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181AF732216B9E0700C6E716 /* Roboto-Regular.ttf */; };
 		184552EC213CFA8200D720EC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184552E9213CFA7100D720EC /* libReactNativeNavigation.a */; };
-		1852377F213D45E600342B6F /* RussoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1852377D213D45E500342B6F /* RussoOne-Regular.ttf */; };
-		18523780213D45E600342B6F /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1852377E213D45E600342B6F /* Roboto-Regular.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -353,9 +353,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = teamboard/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = teamboard/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		181AF731216B9E0600C6E716 /* RussoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RussoOne-Regular.ttf"; path = "../../src/assets/fonts/RussoOne-Regular.ttf"; sourceTree = "<group>"; };
+		181AF732216B9E0700C6E716 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		184552E3213CFA7100D720EC /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
-		1852377D213D45E500342B6F /* RussoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RussoOne-Regular.ttf"; path = "../../../projects/teamboard/MyApp/src/assets/fonts/RussoOne-Regular.ttf"; sourceTree = "<group>"; };
-		1852377E213D45E600342B6F /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../../projects/teamboard/MyApp/src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* teamboard-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "teamboard-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* teamboard-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "teamboard-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -549,8 +549,8 @@
 		18523751213D456900342B6F /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				1852377E213D45E600342B6F /* Roboto-Regular.ttf */,
-				1852377D213D45E500342B6F /* RussoOne-Regular.ttf */,
+				181AF732216B9E0700C6E716 /* Roboto-Regular.ttf */,
+				181AF731216B9E0600C6E716 /* RussoOne-Regular.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -1108,8 +1108,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				1852377F213D45E600342B6F /* RussoOne-Regular.ttf in Resources */,
-				18523780213D45E600342B6F /* Roboto-Regular.ttf in Resources */,
+				181AF733216B9E0700C6E716 /* RussoOne-Regular.ttf in Resources */,
+				181AF734216B9E0700C6E716 /* Roboto-Regular.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
